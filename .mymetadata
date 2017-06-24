@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="schoolcard"
+  id="myeclipse.1498047247697"
+  context-root="/Maven_Project"
+  j2ee-spec="1.7"
+  archive="schoolcard.war">
+  <attributes>
+    <attribute name="webrootdir" value="src/main/webapp" />
+  </attributes>
+</project-module>
+
