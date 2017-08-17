@@ -10,11 +10,11 @@
   <sql id="Base_Column_List" >
     ID, NAME, PASSWORD, AGE
   </sql>
-  <select id="selectAllUser" resultMap="BaseResultMap">  
-        select  
-        <include refid="Base_Column_List" />  
-        from TUSER  
-  </select>  
+  <select id="selectAllUser" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from TUSER
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
     select 
     <include refid="Base_Column_List" />
