@@ -51,6 +51,9 @@
         <property name="maxUploadSize" value="10485760000" />    
         <!-- 内存中的最大值 -->  
         <property name="maxInMemorySize" value="40960" />    
-    </bean>   
+    </bean>
+    <mvc:resources mapping="/resources/**" location="/resources/"
+                   cache-period="31556926"/>
+    <mvc:annotation-driven />
   
 </beans>  
