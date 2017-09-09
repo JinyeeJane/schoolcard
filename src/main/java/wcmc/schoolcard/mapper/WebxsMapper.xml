@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wcmc.schoolcard.dao.WebxsMapper" >
+  <resultMap id="BaseResultMap" type="wcmc.schoolcard.dto.Webxs" >
+    <id column="XH" property="xh" jdbcType="VARCHAR" />
+    <result column="XM" property="xm" jdbcType="VARCHAR" />
+    <result column="XBDM" property="xbdm" jdbcType="VARCHAR" />
+    <result column="CSRQ" property="csrq" jdbcType="VARCHAR" />
+    <result column="YXSHMC" property="yxshmc" jdbcType="VARCHAR" />
+    <result column="MZMC" property="mzmc" jdbcType="VARCHAR" />
+    <result column="ZYHMC" property="zyhmc" jdbcType="VARCHAR" />
+    <result column="BJMC" property="bjmc" jdbcType="VARCHAR" />
+    <result column="SZNJ" property="sznj" jdbcType="VARCHAR" />
+    <result column="XSLB" property="xslb" jdbcType="VARCHAR" />
+    <result column="ZZMMMC" property="zzmmmc" jdbcType="VARCHAR" />
+    <result column="XS_ID" property="xsId" jdbcType="VARCHAR" />
+    <result column="SFZX" property="sfzx" jdbcType="VARCHAR" />
+    <result column="PASS" property="pass" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    XH, XM, XBDM, CSRQ, YXSHMC, MZMC, ZYHMC, BJMC, SZNJ, XSLB, ZZMMMC, XS_ID, SFZX, PASS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from WEBXS
+    where XH = #{xh,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectAllUser" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from WEBXS
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from WEBXS
+    where XH = #{xh,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="wcmc.schoolcard.dto.Webxs" >
+    insert into WEBXS (XH, XM, XBDM, 
+      CSRQ, YXSHMC, MZMC, 
+      ZYHMC, BJMC, SZNJ, 
+      XSLB, ZZMMMC, XS_ID, 
+      SFZX, PASS)
+    values (#{xh,jdbcType=VARCHAR}, #{xm,jdbcType=VARCHAR}, #{xbdm,jdbcType=VARCHAR}, 
+      #{csrq,jdbcType=VARCHAR}, #{yxshmc,jdbcType=VARCHAR}, #{mzmc,jdbcType=VARCHAR}, 
+      #{zyhmc,jdbcType=VARCHAR}, #{bjmc,jdbcType=VARCHAR}, #{sznj,jdbcType=VARCHAR}, 
+      #{xslb,jdbcType=VARCHAR}, #{zzmmmc,jdbcType=VARCHAR}, #{xsId,jdbcType=VARCHAR}, 
+      #{sfzx,jdbcType=VARCHAR}, #{pass,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="wcmc.schoolcard.dto.Webxs" >
+    insert into WEBXS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="xh != null" >
+        XH,
+      </if>
+      <if test="xm != null" >
+        XM,
+      </if>
+      <if test="xbdm != null" >
+        XBDM,
+      </if>
+      <if test="csrq != null" >
+        CSRQ,
+      </if>
+      <if test="yxshmc != null" >
+        YXSHMC,
+      </if>
+      <if test="mzmc != null" >
+        MZMC,
+      </if>
+      <if test="zyhmc != null" >
+        ZYHMC,
+      </if>
+      <if test="bjmc != null" >
+        BJMC,
+      </if>
+      <if test="sznj != null" >
+        SZNJ,
+      </if>
+      <if test="xslb != null" >
+        XSLB,
+      </if>
+      <if test="zzmmmc != null" >
+        ZZMMMC,
+      </if>
+      <if test="xsId != null" >
+        XS_ID,
+      </if>
+      <if test="sfzx != null" >
+        SFZX,
+      </if>
+      <if test="pass != null" >
+        PASS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="xh != null" >
+        #{xh,jdbcType=VARCHAR},
+      </if>
+      <if test="xm != null" >
+        #{xm,jdbcType=VARCHAR},
+      </if>
+      <if test="xbdm != null" >
+        #{xbdm,jdbcType=VARCHAR},
+      </if>
+      <if test="csrq != null" >
+        #{csrq,jdbcType=VARCHAR},
+      </if>
+      <if test="yxshmc != null" >
+        #{yxshmc,jdbcType=VARCHAR},
+      </if>
+      <if test="mzmc != null" >
+        #{mzmc,jdbcType=VARCHAR},
+      </if>
+      <if test="zyhmc != null" >
+        #{zyhmc,jdbcType=VARCHAR},
+      </if>
+      <if test="bjmc != null" >
+        #{bjmc,jdbcType=VARCHAR},
+      </if>
+      <if test="sznj != null" >
+        #{sznj,jdbcType=VARCHAR},
+      </if>
+      <if test="xslb != null" >
+        #{xslb,jdbcType=VARCHAR},
+      </if>
+      <if test="zzmmmc != null" >
+        #{zzmmmc,jdbcType=VARCHAR},
+      </if>
+      <if test="xsId != null" >
+        #{xsId,jdbcType=VARCHAR},
+      </if>
+      <if test="sfzx != null" >
+        #{sfzx,jdbcType=VARCHAR},
+      </if>
+      <if test="pass != null" >
+        #{pass,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="wcmc.schoolcard.dto.Webxs" >
+    update WEBXS
+    <set >
+      <if test="xm != null" >
+        XM = #{xm,jdbcType=VARCHAR},
+      </if>
+      <if test="xbdm != null" >
+        XBDM = #{xbdm,jdbcType=VARCHAR},
+      </if>
+      <if test="csrq != null" >
+        CSRQ = #{csrq,jdbcType=VARCHAR},
+      </if>
+      <if test="yxshmc != null" >
+        YXSHMC = #{yxshmc,jdbcType=VARCHAR},
+      </if>
+      <if test="mzmc != null" >
+        MZMC = #{mzmc,jdbcType=VARCHAR},
+      </if>
+      <if test="zyhmc != null" >
+        ZYHMC = #{zyhmc,jdbcType=VARCHAR},
+      </if>
+      <if test="bjmc != null" >
+        BJMC = #{bjmc,jdbcType=VARCHAR},
+      </if>
+      <if test="sznj != null" >
+        SZNJ = #{sznj,jdbcType=VARCHAR},
+      </if>
+      <if test="xslb != null" >
+        XSLB = #{xslb,jdbcType=VARCHAR},
+      </if>
+      <if test="zzmmmc != null" >
+        ZZMMMC = #{zzmmmc,jdbcType=VARCHAR},
+      </if>
+      <if test="xsId != null" >
+        XS_ID = #{xsId,jdbcType=VARCHAR},
+      </if>
+      <if test="sfzx != null" >
+        SFZX = #{sfzx,jdbcType=VARCHAR},
+      </if>
+      <if test="pass != null" >
+        PASS = #{pass,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where XH = #{xh,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="wcmc.schoolcard.dto.Webxs" >
+    update WEBXS
+    set XM = #{xm,jdbcType=VARCHAR},
+      XBDM = #{xbdm,jdbcType=VARCHAR},
+      CSRQ = #{csrq,jdbcType=VARCHAR},
+      YXSHMC = #{yxshmc,jdbcType=VARCHAR},
+      MZMC = #{mzmc,jdbcType=VARCHAR},
+      ZYHMC = #{zyhmc,jdbcType=VARCHAR},
+      BJMC = #{bjmc,jdbcType=VARCHAR},
+      SZNJ = #{sznj,jdbcType=VARCHAR},
+      XSLB = #{xslb,jdbcType=VARCHAR},
+      ZZMMMC = #{zzmmmc,jdbcType=VARCHAR},
+      XS_ID = #{xsId,jdbcType=VARCHAR},
+      SFZX = #{sfzx,jdbcType=VARCHAR},
+      PASS = #{pass,jdbcType=VARCHAR}
+    where XH = #{xh,jdbcType=VARCHAR}
+  </update>
+</mapper>
