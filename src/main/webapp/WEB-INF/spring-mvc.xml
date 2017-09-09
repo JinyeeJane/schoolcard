@@ -31,7 +31,13 @@
     		<mvc:exclude-mapping path="/stuLogin/login"/>
     		<bean class = "wcmc.schoolcard.interceptor.LoginInterceptor"></bean>
     	</mvc:interceptor>
-    </mvc:interceptors> 
+    </mvc:interceptors>
+
+    <!--web资源(js,css,图片等等)存储路径-->
+
+    <mvc:resources mapping="/resources/**" location="/resources/"
+                   cache-period="31556926"/>
+    <mvc:annotation-driven />
       
     <!-- 设置使用注解的类所在的包 -->  
     <context:component-scan base-package="wcmc.schoolcard.controller" />  
@@ -62,8 +68,6 @@
         <property name="maxInMemorySize" value="40960" />    
     </bean>
 
-    <mvc:resources mapping="/resources/**" location="/resources/"
-                   cache-period="31556926"/>
-    <mvc:annotation-driven />
+
   
 </beans>  

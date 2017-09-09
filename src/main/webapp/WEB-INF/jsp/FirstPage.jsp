@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="wcmc.schoolcard.dto.Webxs"%>
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%
@@ -69,7 +70,7 @@
 		<div class="row">
 			<div class="card  col-3 border border-dark"
 				style="background-color: #0f0f0f">
-				<img src="<%=basePath%>img/test.jpg" alt="词云" class="card-img-top">
+				<img src="<c:url value="/resources/img/test.jpg"/>" alt="词云" class="card-img-top">
 				<div class="card-body">
 					<h4 align="center">
 						<font color="white"><%=name%></font>
@@ -104,13 +105,13 @@
 						data-ride="carousel"  style="height:50%;width:100%">
 						<div class="carousel-inner" style="height:100%;width:100%">
 							<div class="carousel-item active">
-								<img class="d-block w-100" src="img/Sale.jpg" alt="First slide">
+								<img class="d-block w-100" src="<c:url value="/resources/img/Sale.jpg"/>" alt="First slide">
 							</div>
 							<div class="carousel-item">
-								<img class="d-block w-100" src="img/test.jpg" alt="Second slide">
+								<img class="d-block w-100" src="<c:url value="/resources/img/test.jpg"/>" alt="Second slide">
 							</div>
 							<div class="carousel-item">
-								<img class="d-block w-100" src="img/zhengqingchun.jpg" alt="Third slide">
+								<img class="d-block w-100" src="<c:url value="/resources/img/zhengqingchun.jpg"/>" alt="Third slide">
 							</div>
 						</div>
 						<a class="carousel-control-prev" href="#carouselExampleControls"
