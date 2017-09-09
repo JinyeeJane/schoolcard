@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wcmc.schoolcard.dao.WebbookinfoMapper" >
+  <resultMap id="BaseResultMap" type="wcmc.schoolcard.dto.Webbookinfo" >
+    <id column="BOOKID" property="bookid" jdbcType="VARCHAR" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="AUTHOR" property="author" jdbcType="VARCHAR" />
+    <result column="CBS" property="cbs" jdbcType="VARCHAR" />
+    <result column="ZTC" property="ztc" jdbcType="VARCHAR" />
+    <result column="CBRQ" property="cbrq" jdbcType="VARCHAR" />
+    <result column="JG" property="jg" jdbcType="VARCHAR" />
+    <result column="YS" property="ys" jdbcType="VARCHAR" />
+    <result column="JJ" property="jj" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    BOOKID, TITLE, AUTHOR, CBS, ZTC, CBRQ, JG, YS, JJ
+  </sql>
+  <select id="selectByBookIds" resultMap="BaseResultMap" parameterType="List">
+    select
+    <include refid="Base_Column_List" />
+    from WEBBOOKINFO WHERE BOOKID IN #{bookids}
+
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from WEBBOOKINFO
+    where BOOKID = #{bookid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from WEBBOOKINFO
+    where BOOKID = #{bookid,jdbcType=VARCHAR}
+  </delete>
+</mapper>

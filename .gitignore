@@ -1,0 +1,37 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Java template
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+.gitignore
+.idea/
+logs/
+schoolcard.iml
+target/
+/src/main/resources/applicationContext.xml
+/src/main/resources/jdbc.properties
+/src/main/resources/spring-tx.xml
+/src/main/resources/spring-db.xml
+/src/main/resources/spring-dao.xml
+/src/main/resources/log4j.properties
+

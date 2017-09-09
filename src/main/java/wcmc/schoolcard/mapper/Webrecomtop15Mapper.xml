@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wcmc.schoolcard.dao.Webrecomtop15Mapper" >
+  <resultMap id="BaseResultMap" type="wcmc.schoolcard.dto.WebRecomtop15" >
+    <id column="READERID" property="readerid" jdbcType="VARCHAR" />
+    <result column="BOOKID_1" property="bookid1" jdbcType="VARCHAR" />
+    <result column="BOOKID_2" property="bookid2" jdbcType="VARCHAR" />
+    <result column="BOOKID_3" property="bookid3" jdbcType="VARCHAR" />
+    <result column="BOOKID_4" property="bookid4" jdbcType="VARCHAR" />
+    <result column="BOOKID_5" property="bookid5" jdbcType="VARCHAR" />
+    <result column="BOOKID_6" property="bookid6" jdbcType="VARCHAR" />
+    <result column="BOOKID_7" property="bookid7" jdbcType="VARCHAR" />
+    <result column="BOOKID_8" property="bookid8" jdbcType="VARCHAR" />
+    <result column="BOOKID_9" property="bookid9" jdbcType="VARCHAR" />
+    <result column="BOOKID_10" property="bookid10" jdbcType="VARCHAR" />
+    <result column="BOOKID_11" property="bookid11" jdbcType="VARCHAR" />
+    <result column="BOOKID_12" property="bookid12" jdbcType="VARCHAR" />
+    <result column="BOOKID_13" property="bookid13" jdbcType="VARCHAR" />
+    <result column="BOOKID_14" property="bookid14" jdbcType="VARCHAR" />
+    <result column="BOOKID_15" property="bookid15" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    READERID, BOOKID_1, BOOKID_2, BOOKID_3, BOOKID_4, BOOKID_5, BOOKID_6, BOOKID_7, BOOKID_8, 
+    BOOKID_9, BOOKID_10, BOOKID_11, BOOKID_12, BOOKID_13, BOOKID_14, BOOKID_15
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from WEBRECOMTOP15
+    where READERID = #{readerid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from WEBRECOMTOP15
+    where READERID = #{readerid,jdbcType=VARCHAR}
+  </delete>
+</mapper>
