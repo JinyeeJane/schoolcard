@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration>
-	<classPathEntry location="E:/ojdbc6_g.jar" />
+	<classPathEntry location="/Users/Channings/.m2/repository/com/oracle/ojdbc6/11.2.0.1.0/ojdbc6-11.2.0.1.0.jar" />
 	<context id="context1">
 		<commentGenerator>
 			<property name="suppressAllComments" value="true" />
@@ -13,18 +13,54 @@
 			password="tiger" />
 
 		<javaModelGenerator targetPackage="wcmc.schoolcard.dto"
-			targetProject="schoolcard/src/main/java" />
+			targetProject="src/main/java" />
 
 		<sqlMapGenerator targetPackage="wcmc.schoolcard.mapper"
-			targetProject="schoolcard/src/main/java" />
+			targetProject="src/main/java" />
 
 		<javaClientGenerator targetPackage="wcmc.schoolcard.dao"
-			targetProject="schoolcard/src/main/java" type="XMLMAPPER" />
+			targetProject="src/main/java" type="XMLMAPPER" />
 
-		 <table schema="" tableName="TUSER" domainObjectName="Tuser"
-			enableCountByExample="false" enableUpdateByExample="false"
-			enableDeleteByExample="false" enableSelectByExample="false"
-			selectByExampleQueryId="false">
+
+		<!-- 数据表进行生成操作 schema:相当于库名; tableName:表名; domainObjectName:对应的DO -->
+
+		<table schema="" tableName="WEBRECOMTOP15" domainObjectName="WebRecomTop15"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false" enableUpdateByPrimaryKey="false"
+			   enableSelectByPrimaryKey="true" enableInsert="false"
+		>
 		</table>
+		<table schema="" tableName="WEBXS" domainObjectName="Webxs"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false" enableUpdateByPrimaryKey="false"
+			   enableSelectByPrimaryKey="true" enableInsert="false"
+		>
+		</table>
+		<table schema="" tableName="WEBBORROW" domainObjectName="Webborrow"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false" enableUpdateByPrimaryKey="false"
+			   enableSelectByPrimaryKey="true" enableInsert="false"
+		>
+		</table>
+
+		<table schema="" tableName="WEBBOOKINFO" domainObjectName="WebbookInfo"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false" enableUpdateByPrimaryKey="false"
+			   enableSelectByPrimaryKey="true" enableInsert="false"
+		>
+		</table>
+		<table schema="" tableName="WEBBOOKINFO" domainObjectName="WebBookInfo"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false" enableUpdateByPrimaryKey="false"
+			   enableSelectByPrimaryKey="true" enableInsert="false"
+		>
+		</table>
+
+
 	</context>
 </generatorConfiguration>

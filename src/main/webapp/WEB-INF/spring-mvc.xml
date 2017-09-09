@@ -22,7 +22,16 @@
       
      <!-- 添加注解驱动 -->    
     <mvc:annotation-driven />  
-    <mvc:default-servlet-handler/>  
+    <mvc:default-servlet-handler/> 
+    
+    <!-- 拦截器 -->
+    <mvc:interceptors>
+    	<mvc:interceptor>
+    		<mvc:mapping path="/stuLogin/**" />
+    		<mvc:exclude-mapping path="/stuLogin/login"/>
+    		<bean class = "wcmc.schoolcard.interceptor.LoginInterceptor"></bean>
+    	</mvc:interceptor>
+    </mvc:interceptors> 
       
     <!-- 设置使用注解的类所在的包 -->  
     <context:component-scan base-package="wcmc.schoolcard.controller" />  
