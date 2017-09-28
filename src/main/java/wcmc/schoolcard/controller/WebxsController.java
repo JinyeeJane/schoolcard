@@ -6,10 +6,12 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
+import wcmc.schoolcard.dto.WebReaderinfo;
 import wcmc.schoolcard.dto.Webxs;
+import wcmc.schoolcard.service.WebReaderinfoService;
 import wcmc.schoolcard.service.WebxsService;
 
 @Controller
@@ -18,12 +20,15 @@ public class WebxsController {
 	
 	@Autowired
 	private WebxsService webxsService;
+	@Autowired
+	private WebReaderinfoService webReaderinfoService;
 	
 	@RequestMapping("/login")
-	public String login(HttpServletRequest request)
+	public String login(HttpServletRequest request,Model model)
 	{
 		Webxs webxs = webxsService.selectByPrimaryKey(request.getParameter("stuXH"));
-		System.out.println(request.getParameter("stuXH"));
+		String xh = request.getParameter("stuXH");
+		System.out.println("xh:"+xh);
 		String psw = request.getParameter("stuPsw");
 		System.out.println("psw:"+psw);
 		if (webxs != null && webxs.getPass().equals(psw))
@@ -31,11 +36,38 @@ public class WebxsController {
 			System.out.println("true");
 			HttpSession session = request.getSession();
 			session.setAttribute("xs", webxs);
+			WebReaderinfo webReaderinfo = webReaderinfoService.selectByXh(xh);
+//			System.out.println(webReaderinfo.getDzLb());
+			model.addAttribute("webReaderinfo", webReaderinfo);
+			String imgId = webReaderinfo.getReaderid()+".jpg";
+			session.setAttribute("imgId",imgId);
 			return "FirstPage";
 		}
 		else
 			return "redirect:http://localhost:8080/schoolcard/";
 	}
 	
+	@RequestMapping("/firstPage")
+	public String firstPage(HttpServletRequest request)
+	{
+		System.out.println("firstPage");
+		
+		return "FirstPage";
+	}
 	
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest request)
+	{
+		request.getSession().removeAttribute("xs");
+		request.getSession().removeAttribute("imgId");
+		
+		return "redirect:http://localhost:8080/schoolcard/";
+	}
+	
+	@RequestMapping("/bookRec")
+	public String bookRec(HttpServletRequest request)
+	{
+		System.out.println("bookRec");
+		return "BookRec";
+	}
 }

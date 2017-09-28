@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wcmc.schoolcard.dao.WebReaderinfoMapper" >
+  <resultMap id="BaseResultMap" type="wcmc.schoolcard.dto.WebReaderinfo" >
+    <id column="READERID" property="readerid" jdbcType="VARCHAR" />
+    <result column="DZ_LB" property="dzLb" jdbcType="VARCHAR" />
+    <result column="XH" property="xh" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    READERID, DZ_LB, XH
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from WEBREADERINFO
+    where READERID = #{readerid,jdbcType=VARCHAR}
+  </select>
+  
+    <select id="selectByXh" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from WEBREADERINFO
+    where XH = #{xh,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from WEBREADERINFO
+    where READERID = #{readerid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="wcmc.schoolcard.dto.WebReaderinfo" >
+    insert into WEBREADERINFO (READERID, DZ_LB, XH
+      )
+    values (#{readerid,jdbcType=VARCHAR}, #{dzLb,jdbcType=VARCHAR}, #{xh,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="wcmc.schoolcard.dto.WebReaderinfo" >
+    insert into WEBREADERINFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="readerid != null" >
+        READERID,
+      </if>
+      <if test="dzLb != null" >
+        DZ_LB,
+      </if>
+      <if test="xh != null" >
+        XH,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="readerid != null" >
+        #{readerid,jdbcType=VARCHAR},
+      </if>
+      <if test="dzLb != null" >
+        #{dzLb,jdbcType=VARCHAR},
+      </if>
+      <if test="xh != null" >
+        #{xh,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="wcmc.schoolcard.dto.WebReaderinfo" >
+    update WEBREADERINFO
+    <set >
+      <if test="dzLb != null" >
+        DZ_LB = #{dzLb,jdbcType=VARCHAR},
+      </if>
+      <if test="xh != null" >
+        XH = #{0},
+      </if>
+    </set>
+    where READERID = #{readerid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="wcmc.schoolcard.dto.WebReaderinfo" >
+    update WEBREADERINFO
+    set DZ_LB = #{dzLb,jdbcType=VARCHAR},
+      XH = #{xh,jdbcType=VARCHAR}
+    where READERID = #{readerid,jdbcType=VARCHAR}
+  </update>
+</mapper>

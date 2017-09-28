@@ -1,4 +1,5 @@
 <%@page import="wcmc.schoolcard.dto.Webxs"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%
 	String path = request.getContextPath();
@@ -54,46 +55,37 @@
 	</nav>
 
 	<!-- 获取session中的值 -->
-	<%
-		Webxs xs = (Webxs) session.getAttribute("xs");
-		String name = xs.getXm();
-		String gender = xs.getXbdm();
-		String faculty = xs.getYxshmc();
-		String nation = xs.getMzmc();
-		String major = xs.getZyhmc();
-		String className = xs.getBjmc();
-		String grade = xs.getSznj();
-	%>
-
+	
+	
 	<div class="container-fluid">
 		<div class="row">
 			<div class="card  col-3 border border-dark"
 				style="background-color: #0f0f0f;width: 20rem;">
-				<img src="<%=basePath%>img/test.jpg" alt="词云" class="card-img-top">
+				<img src="${sessionScope.imgId}" alt="词云" class="card-img-top">
 				<div class="card-body">
 					<h4 align="center">
-						<font color="white"><%=name%></font>
+						<font color="white">${sessionScope.xs.xm }</font>
 					</h4>
 					<div class="container-fluid">
 						<div class="row">
 							<div class="col-6" style="color: white;">
-								性别：<%=gender%></div>
+								性别：${sessionScope.xs.xbdm==1?'男':'女' }</div>
 							<div class="col-6" style="color: white;">
-								民族：<%=nation%></div>
+								民族：${sessionScope.xs.mzmc }</div>
 						</div>
 						<div class="row">
 							<div class="col-6" style="color: white;">
-								年级：<%=grade%></div>
+								年级：${sessionScope.xs.sznj }</div>
 							<div class="col-6" style="color: white;">
-								班级：<%=className%></div>
-						</div>
-						<div class="row">
-							<div class="col" style="color: white;">
-								院系：<%=faculty%></div>
+								班级：${sessionScope.xs.bjmc }</div>
 						</div>
 						<div class="row">
 							<div class="col" style="color: white;">
-								专业：<%=major%></div>
+								院系：${sessionScope.xs.yxshmc }</div>
+						</div>
+						<div class="row">
+							<div class="col" style="color: white;">
+								专业：${sessionScope.xs.zyhmc }</div>
 						</div>
 					</div>
 				</div>
@@ -104,13 +96,13 @@
 						data-ride="carousel"  style="height:50%;width:100%">
 						<div class="carousel-inner" style="height:100%;width:100%">
 							<div class="carousel-item active">
-								<img class="d-block w-100" src="img/Sale.jpg" alt="First slide">
+								<img class="d-block w-100" src="<c:url value="/resources/img/Sale.jpg"/>" alt="First slide">
 							</div>
 							<div class="carousel-item">
-								<img class="d-block w-100" src="img/test.jpg" alt="Second slide">
+								<img class="d-block w-100" src="<c:url value="/resources/img/test.jpg"/>" alt="Second slide">
 							</div>
 							<div class="carousel-item">
-								<img class="d-block w-100" src="img/zhengqingchun.jpg" alt="Third slide">
+								<img class="d-block w-100" src="<c:url value="/resources/img/zhengqingchun.jpg"/>" alt="Third slide">
 							</div>
 						</div>
 						<a class="carousel-control-prev" href="#carouselExampleControls"
