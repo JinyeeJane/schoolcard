@@ -22,7 +22,7 @@ public class WebxsController {
 	private WebxsService webxsService;
 	@Autowired
 	private WebReaderinfoService webReaderinfoService;
-
+	
 	@RequestMapping("/login")
 	public String login(HttpServletRequest request,Model model)
 	{
@@ -51,19 +51,19 @@ public class WebxsController {
 	public String firstPage(HttpServletRequest request)
 	{
 		System.out.println("firstPage");
-
+		
 		return "FirstPage";
 	}
-
+	
 	@RequestMapping("/logout")
 	public String logout(HttpServletRequest request)
 	{
 		request.getSession().removeAttribute("xs");
 		request.getSession().removeAttribute("imgId");
-
+		
 		return "redirect:http://localhost:8080/schoolcard/";
 	}
-
+	
 	@RequestMapping("/bookRec")
 	public String bookRec(HttpServletRequest request)
 	{

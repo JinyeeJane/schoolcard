@@ -1,10 +1,12 @@
 <%@page import="wcmc.schoolcard.dto.Webxs"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
+	ResourceBundle nginx = ResourceBundle.getBundle("nginx");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -54,8 +56,8 @@
 	</nav>
 
 	<!-- 获取session中的值 -->
-
-
+	
+	
 	<div class="container-fluid">
 		<div class="row">
 			<div class="card  col-3 border border-dark"
