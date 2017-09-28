@@ -90,6 +90,7 @@
 					</div>
 				</div>
 			</div>
+
 			<div class="col-9">
 				<div class="row">
 					<div id="carouselExampleControls" class="carousel slide"
