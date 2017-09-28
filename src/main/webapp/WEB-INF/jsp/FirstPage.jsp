@@ -61,7 +61,7 @@
 		<div class="row">
 			<div class="card  col-3 border border-dark"
 				style="background-color: #0f0f0f">
-				<img src='<c:url value="/resources/img/error.bmp"/>' onerror="javascript:this.src='<c:url value="/resources/img/error.bmp"/>'" alt="词云" class="card-img-top">
+				<img src="<%=nginx.getString("wordcloud")%>${sessionScope.imgId}" onerror="javascript:this.src='<c:url value="/resources/img/error.bmp"/>'" alt="词云" class="card-img-top" src='<c:url value="/resources/img/error.bmp"/>'>
 				<div class="card-body">
 					<h4 align="center">
 						<font color="white">${sessionScope.xs.xm }</font>
