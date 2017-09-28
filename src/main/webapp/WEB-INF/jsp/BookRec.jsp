@@ -6,6 +6,7 @@
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
+	ResourceBundle nginx = ResourceBundle.getBundle("nginx");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -61,7 +62,7 @@
 		<div class="row">
 			<div class="card  col-3 border border-dark"
 				style="background-color: #0f0f0f;width: 20rem;">
-				<img src="${sessionScope.imgId}" alt="词云" class="card-img-top">
+				<img src='<c:url value="/resources/img/error.bmp"/>' onerror="javascript:this.src='<c:url value="/resources/img/error.bmp"/>'" alt="词云" class="card-img-top">
 				<div class="card-body">
 					<h4 align="center">
 						<font color="white">${sessionScope.xs.xm }</font>
