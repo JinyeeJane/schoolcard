@@ -10,8 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import wcmc.schoolcard.dto.WebReaderinfo;
+import wcmc.schoolcard.dto.Webrecomstatistics;
 import wcmc.schoolcard.dto.Webxs;
 import wcmc.schoolcard.service.WebReaderinfoService;
+import wcmc.schoolcard.service.WebRecomStatisticsService;
 import wcmc.schoolcard.service.WebxsService;
 
 @Controller
@@ -22,6 +24,8 @@ public class WebxsController {
 	private WebxsService webxsService;
 	@Autowired
 	private WebReaderinfoService webReaderinfoService;
+	@Autowired
+	private WebRecomStatisticsService webRecomStatisticsService;
 	
 	@RequestMapping("/login")
 	public String login(HttpServletRequest request,Model model)
@@ -41,6 +45,9 @@ public class WebxsController {
 			model.addAttribute("webReaderinfo", webReaderinfo);
 			String imgId = webReaderinfo.getReaderid()+".jpg";
 			session.setAttribute("imgId",imgId);
+			String type = "MOSTBorrow";
+			Webrecomstatistics webrecomstatistics = webRecomStatisticsService.selectByType(type);
+			model.addAttribute("webrecomstatistics", webrecomstatistics);
 			return "FirstPage";
 		}
 		else

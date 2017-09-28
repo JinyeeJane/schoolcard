@@ -142,6 +142,10 @@
 							</tr>
 						</tbody>
 					</table>
+					<div id="showborrowtimes" style="width:800px;height: 400px;">
+
+					</div>
+
 				</div>
 								
 			</div>
@@ -172,5 +176,68 @@
 		src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
 		integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
 		crossorigin="anonymous"></script>
+
+	<script type="text/javascript" src="<c:url value="/resources/js/echarts.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/resources/js/jquery-3.2.1/jquery-3.2.1.js"/>"></script>
+
+
+	<script class="showborrowtimes">
+
+		var data = ${webrecomstatistics.data};
+		var keyarr = [];
+		var valarr = [];
+		for (var item in data) {
+			keyarr.push(item);
+			valarr.push(data[item]);
+
+		}
+
+		var myChart = echarts.init(document.getElementById('showborrowtimes'));
+		var option = {
+			title: {
+				text: '借阅Top15',
+				subtext: '图书馆借阅次数top15的书籍'
+			},
+			color: ['#008080'],
+			tooltip: {
+				trigger: 'axis',
+				axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+					type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+				}
+			},
+			grid: {
+				left: '3%',
+				right: '4%',
+				bottom: '3%',
+				containLabel: true
+			},
+			xAxis: [
+				{
+					type: 'value'
+				}
+
+
+			],
+			yAxis: [
+				{
+					type: 'category',
+					data: keyarr,
+					axisTick: {
+						alignWithLabel: true
+					}
+				}
+			],
+			series: [
+				{
+					name: '直接访问',
+					type: 'bar',
+					barWidth: '60%',
+					data: valarr
+				}
+			]
+		};
+
+		myChart.setOption(option);
+	</script>
 </body>
 </html>
