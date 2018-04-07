@@ -4,9 +4,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.poi.hssf.util.HSSFColor.TEAL;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import wcmc.schoolcard.dto.Webteacher;
 import wcmc.schoolcard.dto.Webxs;
 
 public class LoginInterceptor implements HandlerInterceptor{
@@ -32,14 +34,20 @@ public class LoginInterceptor implements HandlerInterceptor{
 		System.out.println("interceptor");
 		HttpSession session = request.getSession();
 		Webxs webxs = (Webxs)session.getAttribute("xs");
-		if (webxs != null)
-		{
-			System.out.println("interceptor true");
-			return true;
+		Webteacher webteacher = (Webteacher)session.getAttribute("teacher");
+//		if (webxs != null)
+//		{
+//			System.out.println("interceptor true");
+//			return true;
+//		}
+//		System.out.println("interceptor false");
+		if (webxs == null && webteacher == null) {
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
+			return false;
 		}
-		System.out.println("interceptor false");
-		request.getRequestDispatcher("/login.jsp").forward(request, response);
-		return false;
+		
+		return true;
+		
 	}
 
 }
