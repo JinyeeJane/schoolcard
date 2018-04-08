@@ -21,14 +21,31 @@ public class WebteacherController {
 	
 	@RequestMapping("/login")
 	public String login(HttpServletRequest request) {
-		Webteacher webteacher = webteacherService.selectByIdAndPass(request.getParameter("id"), request.getParameter("password"));
+		String id = request.getParameter("id");
+		String password = request.getParameter("password");
+		if (id == null) {
+			return "redirect:http://localhost:8080/schoolcard/teacherLogin.jsp";
+		}
+		Webteacher webteacher = webteacherService.selectByIdAndPass(id, password);
 		if (webteacher != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("teacher", webteacher);
-			return "teacherFirstPage";
+			return "teacher/FirstPage";
 		} else {
 			return "redirect:http://localhost:8080/schoolcard/teacherLogin.jsp";
 		}
+	}
+	
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest request){
+		request.getSession().removeAttribute("teacher");
+		return "redirect:http://localhost:8080/schoolcard/teacherLogin.jsp";
+	}
+	
+	@RequestMapping("/firstPage")
+	public String firstPage(HttpServletRequest request)
+	{
+		return "teacher/FirstPage";
 	}
 
 }
