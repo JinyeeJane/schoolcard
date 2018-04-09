@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration>
-	<classPathEntry location="/Users/Channings/.m2/repository/com/oracle/ojdbc6/11.2.0.1.0/ojdbc6-11.2.0.1.0.jar" />
+	<classPathEntry location="E:/ojdbc6_g.jar" />
 	<context id="context1">
 		<commentGenerator>
 			<property name="suppressAllComments" value="true" />
@@ -13,17 +13,17 @@
 			password="tiger" />
 
 		<javaModelGenerator targetPackage="wcmc.schoolcard.dto"
-			targetProject="src/main/java" />
+			targetProject="schoolcard/src/main/java" />
 
 		<sqlMapGenerator targetPackage="wcmc.schoolcard.mapper"
-			targetProject="src/main/java" />
+			targetProject="schoolcard/src/main/java" />
 
 		<javaClientGenerator targetPackage="wcmc.schoolcard.dao"
-			targetProject="src/main/java" type="XMLMAPPER" />
+			targetProject="schoolcard/src/main/java" type="XMLMAPPER" />
 
 
 		<!-- 数据表进行生成操作 schema:相当于库名; tableName:表名; domainObjectName:对应的DO -->
-
+		<!--  
 		<table schema="" tableName="WEBRECOMTOP15" domainObjectName="WebRecomTop15"
 			   enableCountByExample="false" enableUpdateByExample="false"
 			   enableDeleteByExample="false" enableSelectByExample="false"
@@ -60,7 +60,15 @@
 			   enableSelectByPrimaryKey="true" enableInsert="false"
 		>
 		</table>
-
-
+		-->
+		
+		<table schema="" tableName="WEBTEACHER" domainObjectName="Webteacher"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false" enableUpdateByPrimaryKey="false"
+			   enableSelectByPrimaryKey="true" enableInsert="false"
+		>
+		</table>
+		
 	</context>
 </generatorConfiguration>

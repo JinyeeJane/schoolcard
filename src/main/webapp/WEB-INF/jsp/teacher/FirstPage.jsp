@@ -41,14 +41,14 @@
 
 			<div class="navbar-nav col-sm-10 row">
 				<a class="nav-item nav-link active ml-3"
-					href="<%=basePath%>stuLogin/firstPage">首页 <span class="sr-only">(current)</span>
-				</a> <a class="nav-item nav-link" href="<%=basePath%>stuLogin/bookRec">推荐系統</a>
-				<a class="nav-item nav-link" href="#">贫困生预测</a>
+					href="<%=basePath%>teacherLogin/firstPage">首页 <span class="sr-only">(current)</span>
+				</a> <a class="nav-item nav-link" href="#">异常学生</a>
+				<a class="nav-item nav-link" href="#">贫困生</a>
 			</div>
 			<div class="col-sm-2 row">
-				<a class="nav-item nav-link" href="<%=basePath%>stuLogin/login"><font
+				<a class="nav-item nav-link" href="<%=basePath%>teacherLogin/login"><font
 					color="#ffffff">登录</font> </a> <a class="nav-item nav-link"
-					href="<%=basePath%>stuLogin/logout"><font color="#ffffff">登出</font>
+					href="<%=basePath%>teacherLogin/logout"><font color="#ffffff">登出</font>
 				</a>
 			</div>
 		</div>

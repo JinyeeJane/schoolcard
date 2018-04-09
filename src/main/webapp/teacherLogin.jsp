@@ -40,18 +40,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <div class="jumbotron">
   <h1 class="display-4" align="center">请先登录</h1>
-		<form id="stuLogin" action="stuLogin/login" method="post">
+		<form id="teacherLogin" action="teacherLogin/login" method="post">
 			<div class="input-group">
-				<span class="input-group-addon">学&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp号:</span> 
-				<input type="text" class="form-control"  name="stuXH">
+				<span class="input-group-addon">账&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp号:</span> 
+				<input type="text" class="form-control"  name="id">
 			</div>
 			<div class="input-group">
 				<span class="input-group-addon">密&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp码:</span>
-				<input type="password"  name="stuPsw" class="form-control" >
+				<input type="password"  name="password" class="form-control" >
 			</div>
 			<hr class="my-4">
 			<p>若无账号，请联系一卡通小组（wcmc@csu.edu.cn）</p><br>
-			<p><a href="teacherLogin.jsp">教师登陆</a></p>
+			<p><a href="login.jsp">学生登陆</a></p>
 			<p class="lead">
 			<div align="center">
 				<input type="submit" value="登录" class="btn btn-dark btn-lg" href="#" role="button">
