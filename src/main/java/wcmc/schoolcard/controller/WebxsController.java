@@ -48,7 +48,7 @@ public class WebxsController {
 			String type = "MOSTBorrow";
 			Webrecomstatistics webrecomstatistics = webRecomStatisticsService.selectByType(type);
 			model.addAttribute("webrecomstatistics", webrecomstatistics);
-			return "FirstPage";
+			return "student/FirstPage";
 		}
 		else
 			return "redirect:http://localhost:8080/schoolcard/";
@@ -59,7 +59,7 @@ public class WebxsController {
 	{
 		System.out.println("firstPage");
 		
-		return "FirstPage";
+		return "student/FirstPage";
 	}
 	
 	@RequestMapping("/logout")

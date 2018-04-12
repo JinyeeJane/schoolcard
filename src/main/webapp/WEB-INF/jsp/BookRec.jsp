@@ -100,9 +100,6 @@
 								<img class="d-block w-100" src="<c:url value="/resources/img/Sale.jpg"/>" alt="First slide">
 							</div>
 							<div class="carousel-item">
-								<img class="d-block w-100" src="<c:url value="/resources/img/test.jpg"/>" alt="Second slide">
-							</div>
-							<div class="carousel-item">
 								<img class="d-block w-100" src="<c:url value="/resources/img/zhengqingchun.jpg"/>" alt="Third slide">
 							</div>
 						</div>
