@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wcmc.schoolcard.dao.WebgradeMapper" >
+  <resultMap id="BaseResultMap" type="wcmc.schoolcard.dto.Webgrade" >
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="XS_ID" property="xsId" jdbcType="VARCHAR" />
+    <result column="XN" property="xn" jdbcType="VARCHAR" />
+    <result column="XQM" property="xqm" jdbcType="VARCHAR" />
+    <result column="XQ" property="xq" jdbcType="VARCHAR" />
+    <result column="JD" property="jd" jdbcType="DECIMAL" />
+    <result column="KCH" property="kch" jdbcType="VARCHAR" />
+    <result column="KCMC" property="kcmc" jdbcType="VARCHAR" />
+    <result column="FSLKXCJ" property="fslkxcj" jdbcType="VARCHAR" />
+    <result column="DJLKSCJ" property="djlkscj" jdbcType="VARCHAR" />
+    <result column="XF" property="xf" jdbcType="VARCHAR" />
+    <result column="KSRQ" property="ksrq" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

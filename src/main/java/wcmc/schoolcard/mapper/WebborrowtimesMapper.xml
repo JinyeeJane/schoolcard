@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wcmc.schoolcard.dao.WebborrowtimesMapper" >
+  <resultMap id="BaseResultMap" type="wcmc.schoolcard.dto.Webborrowtimes" >
+    <result column="STUDENT_ID" property="studentId" jdbcType="VARCHAR" />
+    <result column="BORROW_TIMES" property="borrowTimes" jdbcType="DECIMAL" />
+  </resultMap>
+</mapper>

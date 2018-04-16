@@ -60,9 +60,48 @@
 			   enableSelectByPrimaryKey="true" enableInsert="false"
 		>
 		</table>
+		<table schema="" tableName="WEBTEACHER" domainObjectName="Webteacher"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false" enableUpdateByPrimaryKey="false"
+			   enableSelectByPrimaryKey="true" enableInsert="false"
+		>
+		</table>
 		-->
 		
-		<table schema="" tableName="WEBTEACHER" domainObjectName="Webteacher"
+		<table schema="" tableName="WEBGRADE" domainObjectName="Webgrade"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false" enableUpdateByPrimaryKey="false"
+			   enableSelectByPrimaryKey="true" enableInsert="false"
+		>
+		</table>
+		
+		<table schema="" tableName="WEBERROR" domainObjectName="Weberror"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false" enableUpdateByPrimaryKey="false"
+			   enableSelectByPrimaryKey="true" enableInsert="false"
+		>
+		</table>
+		
+		<table schema="" tableName="WEBPOOR" domainObjectName="Webpoor"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false" enableUpdateByPrimaryKey="false"
+			   enableSelectByPrimaryKey="true" enableInsert="false"
+		>
+		</table>
+		
+		<table schema="" tableName="WEBCANTEEN" domainObjectName="Webcanteen"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false" enableUpdateByPrimaryKey="false"
+			   enableSelectByPrimaryKey="true" enableInsert="false"
+		>
+		</table>
+		
+		<table schema="" tableName="WEBBORROWTIMES" domainObjectName="Webborrowtimes"
 			   enableCountByExample="false" enableUpdateByExample="false"
 			   enableDeleteByExample="false" enableSelectByExample="false"
 			   selectByExampleQueryId="false" enableUpdateByPrimaryKey="false"
