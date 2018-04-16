@@ -161,7 +161,9 @@
 	</div>
 	</nav>
 
-
+	<div>
+	${personalGraph}
+	</div>
 	<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js"
 		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
 		crossorigin="anonymous"></script>
@@ -177,7 +179,7 @@
 	<script type="text/javascript" src="<c:url value="/resources/js/echarts.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/resources/js/jquery-3.2.1/jquery-3.2.1.js"/>"></script>
 
-
+	
 	<script class="showborrowtimes">
 
 		var data = ${webrecomstatistics.data};

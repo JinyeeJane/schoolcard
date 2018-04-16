@@ -18,4 +18,5 @@ public interface WebxsMapper {
     int updateByPrimaryKey(Webxs record);
     
     List<Webxs> selectAllUser();
+    
 }

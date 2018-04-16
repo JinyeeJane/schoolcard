@@ -42,6 +42,7 @@ public class WebxsController {
 			session.setAttribute("xs", webxs);
 			WebReaderinfo webReaderinfo = webReaderinfoService.selectByXh(xh);
 //			System.out.println(webReaderinfo.getDzLb());
+			model.addAttribute("personalGraph", webxsService.getPersonalInfo(xh));
 			model.addAttribute("webReaderinfo", webReaderinfo);
 			String imgId = webReaderinfo.getReaderid()+".jpg";
 			session.setAttribute("imgId",imgId);
@@ -55,10 +56,8 @@ public class WebxsController {
 	}
 	
 	@RequestMapping("/firstPage")
-	public String firstPage(HttpServletRequest request)
+	public String firstPage(HttpServletRequest request, Model model)
 	{
-		System.out.println("firstPage");
-		
 		return "student/FirstPage";
 	}
 	
@@ -77,4 +76,5 @@ public class WebxsController {
 		System.out.println("bookRec");
 		return "BookRec";
 	}
+	
 }

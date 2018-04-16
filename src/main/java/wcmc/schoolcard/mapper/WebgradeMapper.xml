@@ -15,4 +15,9 @@
     <result column="XF" property="xf" jdbcType="VARCHAR" />
     <result column="KSRQ" property="ksrq" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <select id="getGradeById" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select * from WEBGRADE where XS_ID = #{0}
+  </select>
+  
 </mapper>

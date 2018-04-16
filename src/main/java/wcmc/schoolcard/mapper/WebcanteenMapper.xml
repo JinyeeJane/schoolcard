@@ -6,4 +6,9 @@
     <result column="CANTEEN_TIMES" property="canteenTimes" jdbcType="DECIMAL" />
     <result column="CANTEEN_SUM" property="canteenSum" jdbcType="DECIMAL" />
   </resultMap>
+  
+  <select id="getWebcanteenByXH" resultType="wcmc.schoolcard.dto.Webcanteen">
+  	select * from WEBCANTEEN where STUDENT_ID = #{0}
+  </select>
+  
 </mapper>

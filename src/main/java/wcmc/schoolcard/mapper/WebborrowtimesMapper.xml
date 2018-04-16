@@ -5,4 +5,7 @@
     <result column="STUDENT_ID" property="studentId" jdbcType="VARCHAR" />
     <result column="BORROW_TIMES" property="borrowTimes" jdbcType="DECIMAL" />
   </resultMap>
+  <select id="getWebborrowtimesByXH" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select * from WEBBORROWTIMES where STUDENT_ID = #{0}
+  </select>
 </mapper>

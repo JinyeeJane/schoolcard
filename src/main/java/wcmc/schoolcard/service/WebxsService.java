@@ -22,5 +22,6 @@ public interface WebxsService {
 
 	List<Webxs> selectAllUser();
 	
+	List<String> getPersonalInfo(String id); 
   
 }
