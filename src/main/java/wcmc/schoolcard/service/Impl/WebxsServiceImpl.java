@@ -79,7 +79,6 @@ public class WebxsServiceImpl implements WebxsService{
 		Webxs webxs = webxsMapper.selectByPrimaryKey(xh);
 		String id = webxs.getXsId();
 		float year = (float) (2016 - Integer.parseInt(webxs.getSznj()) + 0.5);
-		System.out.println(year);
 		if (year > 4) {
 			year = 4;
 		}

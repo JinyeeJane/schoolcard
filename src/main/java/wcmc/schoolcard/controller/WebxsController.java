@@ -37,12 +37,13 @@ public class WebxsController {
 		System.out.println("psw:"+psw);
 		if (webxs != null && webxs.getPass().equals(psw))
 		{
-			System.out.println("true");
 			HttpSession session = request.getSession();
 			session.setAttribute("xs", webxs);
 			WebReaderinfo webReaderinfo = webReaderinfoService.selectByXh(xh);
-//			System.out.println(webReaderinfo.getDzLb());
-			model.addAttribute("personalGraph", webxsService.getPersonalInfo(xh));
+			
+			//用户画像数据
+			session.setAttribute("personalGraph", webxsService.getPersonalInfo(xh));
+			
 			model.addAttribute("webReaderinfo", webReaderinfo);
 			String imgId = webReaderinfo.getReaderid()+".jpg";
 			session.setAttribute("imgId",imgId);

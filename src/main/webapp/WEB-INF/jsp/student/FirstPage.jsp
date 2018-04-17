@@ -9,8 +9,8 @@
 	ResourceBundle nginx = ResourceBundle.getBundle("nginx");
 %>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<!DOCTYPE html>
+<html lang="zh-cn">
 <head>
 <base href="<%=basePath%>">
 
@@ -22,10 +22,36 @@
 <!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-<link rel="stylesheet"
+<!-- <link rel="stylesheet"
 	href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
 	integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
-	crossorigin="anonymous">
+	crossorigin="anonymous"> 
+	 -->
+<!-- css 文件 -->
+<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/foundation/5.5.3/css/foundation.min.css">
+
+<!-- jQuery 库 -->
+<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<!-- JavaScript 文件 -->
+<script src="http://cdn.static.runoob.com/libs/foundation/5.5.3/js/foundation.min.js"></script>
+
+<!-- modernizr.js 文件 -->
+<script src="http://cdn.static.runoob.com/libs/foundation/5.5.3/js/vendor/modernizr.js"></script>
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/popper.js/1.12.3/umd/popper.min.js"
+		integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+		crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+		integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+		crossorigin="anonymous"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/echarts.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/jquery-3.2.1/jquery-3.2.1.js"/>"></script>
+
+
 </head>
 
 <body>
@@ -38,13 +64,22 @@
 	</button>
 	<div class="row  container-fluid">
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-
+			
 			<div class="navbar-nav col-sm-10 row">
+			<!-- 
 				<a class="nav-item nav-link active ml-3"
 					href="<%=basePath%>stuLogin/firstPage">首页 <span class="sr-only">(current)</span>
 				</a> <a class="nav-item nav-link" href="<%=basePath%>stuLogin/bookRec">推荐系統</a>
 				<a class="nav-item nav-link" href="#">贫困生预测</a>
+			-->
+				<ul class="tabs" data-tab="">
+				  <li class="tab-title active"><a href="<%=basePath%>stuLogin/firstPage" aria-selected="false" tabindex="0">主页</a></li>
+				  <li class="tab-title"><a href="#menu1" aria-selected="false" tabindex="-1">消费情况</a></li>
+				  <li class="tab-title"><a href="#menu2" aria-selected="true" tabindex="-1">成绩预警</a></li>
+				  <li class="tab-title"><a href="#menu3" aria-selected="false" tabindex="-1">推荐系统</a></li>
+				</ul>
 			</div>
+			
 			<div class="col-sm-2 row">
 				<a class="nav-item nav-link" href="<%=basePath%>stuLogin/login"><font
 					color="#ffffff">登录</font> </a> <a class="nav-item nav-link"
@@ -56,12 +91,13 @@
 	</nav>
 
 	<!-- 获取session中的值 -->
-
+	
 	<div class="container-fluid">
 		<div class="row">
 			<div class="card  col-3 border border-dark"
 				style="background-color: #0f0f0f">
-				<img src="<%=nginx.getString("wordcloud")%>${sessionScope.imgId}" onerror="javascript:this.src='<c:url value="/resources/img/error.bmp"/>'" alt="词云" class="card-img-top" src='<c:url value="/resources/img/error.bmp"/>'>
+				<!-- <img src="<%=nginx.getString("wordcloud")%>${sessionScope.imgId}" onerror="javascript:this.src='<c:url value="/resources/img/error.bmp"/>'" alt="词云" class="card-img-top" src='<c:url value="/resources/img/error.bmp"/>'>
+				 -->
 				<div class="card-body">
 					<h4 align="center">
 						<font color="white">${sessionScope.xs.xm }</font>
@@ -90,7 +126,77 @@
 					</div>
 				</div>
 			</div>
+			<div class="tabs-content">
+				  <div class="content active" id="home" aria-hidden="false" tabindex="-1">
+				  	<div>
+					    <h3>个人首页</h3>
+					    <div id="personalGraph" style="width:800px;height: 400px;">
+					    </div>
+					    <script class="personalGraph">
+					    	var myChart = echarts.init(document.getElementById('personalGraph'));
+					    	var result = ${sessionScope.personalGraph};
+				    		var option = {
+			    			    title: {
+			    			        text: '学生画像'
+					    		},
+					    		tooltip: {},
+					    		legend: {
+					    			data: ['平均水平（Average）', '学生实际水平（Actual）']
+					    		},
+					    		radar: {
+					    			name: {
+					    				textStyle: {
+					    			    	color: '#fff',
+					    			        backgroundColor: '#999',
+					    			        borderRadius: 3,
+					    			        padding: [3, 5]
+					    			    }
+					    			},
+					    			indicator: [
+					    				{ name: '食堂餐均消费', max: 25},
+					    			    { name: '食糖消费频次', max: 7358},
+					    			    { name: '平均成绩', max: 100},
+					    			    { name: '挂科门数', max: 10},
+					    			    { name: '图书馆借阅频次', max: 360}
+					    			]},
+					    			series: [{
+					    			    name: '学生画像 vs 平均情况',
+					    			    type: 'radar',
+					    			    data : [
+					    			    {
+					    			        value : [2.53, 924.93, 75, 0.01, 3.21],
+					    			        name : '平均水平（Average）'
+					    			    },
+					    			    {
+					    			        value : result,
+					    			        name : '学生实际水平（Actual）'
+					    			    }]
+					    			}]
+					    		}; 
+					    		myChart.setOption(option);
+					    	</script>
+					</div>
+				  </div>
+				  <div class="content" id="menu1" aria-hidden="true" tabindex="-1">
+				    <h3>菜单 1</h3>
+				    <p>一些文本内容 1</p>
+				  </div>
+				  <div class="content" id="menu2" aria-hidden="true">
+				    <h3>菜单 2</h3>
+				    <p>一些文本内容 2</p>
+				  </div>
+				  <div class="content" id="menu3" aria-hidden="true" tabindex="-1">
+				    <h3>菜单 3</h3>
+				    <p>一些文本内容 3</p>
+				  </div>
+				</div>
+				<script>
+				$(document).ready(function() {
+				    $(document).foundation();
+				})
+				</script>
 			<div class="col-9">
+				<!-- 
 				<div class="row">
 					<div id="carouselExampleControls" class="carousel slide"
 						data-ride="carousel"  style="height:50%;width:100%">
@@ -111,6 +217,7 @@
 							<span class="sr-only">Next</span> </a>
 					</div>
 				</div>
+				
 				<div class="row">
 					<table class="table">
 						<tbody>
@@ -144,7 +251,11 @@
 					</div>
 
 				</div>
-								
+				-->		
+				
+
+				<!--初始化 Foundation JS -->
+							
 			</div>
 		</div>
 	</div>
@@ -161,25 +272,9 @@
 	</div>
 	</nav>
 
-	<div>
-	${personalGraph}
-	</div>
-	<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js"
-		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.bootcss.com/popper.js/1.12.3/umd/popper.min.js"
-		integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
-		integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
-		crossorigin="anonymous"></script>
-
-	<script type="text/javascript" src="<c:url value="/resources/js/echarts.js"/>"></script>
-	<script type="text/javascript" src="<c:url value="/resources/js/jquery-3.2.1/jquery-3.2.1.js"/>"></script>
-
 	
+	
+	<!-- 
 	<script class="showborrowtimes">
 
 		var data = ${webrecomstatistics.data};
@@ -238,5 +333,6 @@
 
 		myChart.setOption(option);
 	</script>
+	 -->
 </body>
 </html>
