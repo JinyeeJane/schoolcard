@@ -11,4 +11,6 @@ public interface WebbookinfoMapper {
 
     List<Webbookinfo> selectByBookIds(List<String> bookids);
 
+    List<Webbookinfo> selectByBookOrAuthorName(String query);
+
 }

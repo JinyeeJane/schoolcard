@@ -4,25 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import wcmc.schoolcard.dto.Webbookinfo;
-import wcmc.schoolcard.dto.Webborrow;
-import wcmc.schoolcard.dto.Webrecomstatistics;
-import wcmc.schoolcard.dto.WebRecomtop15;
-import wcmc.schoolcard.service.WebBorrowService;
-import wcmc.schoolcard.service.WebRecomStatisticsService;
-import wcmc.schoolcard.service.WebRecomTop15Service;
-import wcmc.schoolcard.service.WebBookInfoService;
+import wcmc.schoolcard.dto.*;
+import wcmc.schoolcard.service.*;
+import com.google.gson.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import wcmc.schoolcard.dto.Webxs;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Channings on 17/9/7.
- */
 @Controller
-@RequestMapping("/recom")
+@RequestMapping("/bookrecom")
 public class RecomController {
     @Autowired
     private WebRecomStatisticsService webRecomStatisticsService;
@@ -31,26 +25,46 @@ public class RecomController {
     @Autowired
     private WebBookInfoService webBookInfoService;
     @Autowired
-    private WebBorrowService WebBorrowService;
+    private WebBorrowService webBorrowService;
 
+    @Autowired
+    private WebReaderinfoService webReaderinfoService;
 
+    @RequestMapping("/")
+    public String BookRecom(HttpServletRequest request, Model model){
+//        String type = new String(request.getParameter("type"));
+//        Webrecomstatistics Webrecomstatistics = webRecomStatisticsService.selectByType(type);
+//        model.addAttribute("RecomStatistics", Webrecomstatistics);
 
-    @RequestMapping("/showstat")
-    public String RecomStatistics(HttpServletRequest request, Model model){
-        String type = new String(request.getParameter("type"));
-        Webrecomstatistics Webrecomstatistics = webRecomStatisticsService.selectByType(type);
-        model.addAttribute("RecomStatistics", Webrecomstatistics);
-        return "selectStatByType";
-    }
+        HttpSession session = request.getSession();
 
+        Webxs xs = (Webxs)session.getAttribute("xs");
 
-    @RequestMapping("/showRecomTop15")
-    public String RecomTop15(HttpServletRequest request, Model model){
-        String readerid = new String(request.getParameter("readerid"));
+        WebReaderinfo webReaderinfo= webReaderinfoService.selectByXh(xs.getXh());
+
+        String readerid = webReaderinfo.getReaderid();
+
         WebRecomtop15 webRecomtop15 = webRecomTop15Service.selectByPrimaryKey(readerid);
-        List<Webbookinfo> listOfRecBooks = new ArrayList<>();
-        Class rectop15Class =  webRecomtop15.getClass();
+
+        List<Webborrow> listOfBrorrow;
+
+        List<Webbookinfo> listOfBroBookInfo = new ArrayList<>();
+
+        listOfBrorrow = webBorrowService.selectByReaderId(readerid);
+
         Webbookinfo webbookinfo;
+
+        for(int i=0;i<listOfBrorrow.size();i++) {
+            webbookinfo = webBookInfoService.selectByPrimaryKey(listOfBrorrow.get(i).getBookid());
+            listOfBroBookInfo.add(webbookinfo);
+        }
+
+        model.addAttribute("listOfBroBookInfo", listOfBroBookInfo);
+
+        List<Webbookinfo> listOfRecBooks = new ArrayList<>();
+
+        Class rectop15Class =  webRecomtop15.getClass();
+
         for(int i=1;i<=15;i++){
 
             try{
@@ -67,21 +81,47 @@ public class RecomController {
 
         }
         model.addAttribute("listOfRecBooks", listOfRecBooks);
-        return "showRecomTop15";
+
+        return "bookrecom/bookRecom";
     }
+
+
+
+    @RequestMapping("/search")
+    public String SearchBook(HttpServletRequest request, Model model){
+        String query = request.getParameter("query");
+        List<Webbookinfo> result4query = webBookInfoService.selectByBookOrAuthorName('%'+query+'%');
+        Gson gson = new Gson();
+
+        String jsonResult4query =  gson.toJson(result4query);
+        model.addAttribute("jsonResult4query", jsonResult4query);
+        model.addAttribute("result4query", result4query);
+        System.out.println(jsonResult4query);
+        System.out.println(result4query.size());
+        return "bookrecom/ajax/search";
+    }
+
+
+//    @RequestMapping("/showstat")
+//    public String RecomStatistics(HttpServletRequest request, Model model){
+//        String type = request.getParameter("type");
+//        Webrecomstatistics Webrecomstatistics = webRecomStatisticsService.selectByType(type);
+//        model.addAttribute("RecomStatistics", Webrecomstatistics);
+//        return "selectStatByType";
+//    }
+
 
     @RequestMapping("/showHisBorrow")
     public String showHisBorrow(HttpServletRequest request, Model model){
-        String readerid = new String(request.getParameter("readerid"));
+        String readerid = request.getParameter("readerid");
         List<Webborrow> listOfBrorrow;
         List<Webbookinfo> listOfBroBookInfo = new ArrayList<>();
-        listOfBrorrow = WebBorrowService.selectByReaderId(readerid);
+        listOfBrorrow = webBorrowService.selectByReaderId(readerid);
         Webbookinfo webbookinfo;
         for(int i=0;i<listOfBrorrow.size();i++) {
             webbookinfo = webBookInfoService.selectByPrimaryKey(listOfBrorrow.get(i).getBookid());
             listOfBroBookInfo.add(webbookinfo);
         }
-
 
         model.addAttribute("listOfBroBookInfo", listOfBroBookInfo);
         return "showHisBorrow";

@@ -8,9 +8,7 @@ import wcmc.schoolcard.service.WebBookInfoService;
 
 import java.util.List;
 
-/**
- * Created by Channings on 17/9/9.
- */
+
 @Service
 public class WebBookInfoServiceImpl implements WebBookInfoService{
     @Autowired
@@ -27,5 +25,9 @@ public class WebBookInfoServiceImpl implements WebBookInfoService{
     @Override
     public List<Webbookinfo> selectByBookIds(List<String> bookids){
         return webbookinfoMapper.selectByBookIds(bookids);
+    }
+    @Override
+    public List<Webbookinfo> selectByBookOrAuthorName(String query){
+        return webbookinfoMapper.selectByBookOrAuthorName(query);
     }
 }

@@ -16,6 +16,7 @@ import wcmc.schoolcard.service.WebReaderinfoService;
 import wcmc.schoolcard.service.WebRecomStatisticsService;
 import wcmc.schoolcard.service.WebxsService;
 
+
 @Controller
 @RequestMapping("/stuLogin")
 public class WebxsController {
