@@ -33,9 +33,7 @@ public class WebxsController {
 	{
 		Webxs webxs = webxsService.selectByPrimaryKey(request.getParameter("stuXH"));
 		String xh = request.getParameter("stuXH");
-		System.out.println("xh:"+xh);
 		String psw = request.getParameter("stuPsw");
-		System.out.println("psw:"+psw);
 		if (webxs != null && webxs.getPass().equals(psw))
 		{
 			HttpSession session = request.getSession();

@@ -146,15 +146,15 @@
 					    		radar: {
 					    			name: {
 					    				textStyle: {
-					    			    	color: '#fff',
-					    			        backgroundColor: '#999',
+					    			    	color: '#000',
+					    			        backgroundColor: '#aaa',
 					    			        borderRadius: 3,
 					    			        padding: [3, 5]
 					    			    }
 					    			},
 					    			indicator: [
 					    				{ name: '食堂餐均消费', max: 25},
-					    			    { name: '食糖消费频次', max: 7358},
+					    			    { name: '食堂消费频次', max: 7358},
 					    			    { name: '平均成绩', max: 100},
 					    			    { name: '挂科门数', max: 10},
 					    			    { name: '图书馆借阅频次', max: 360}
