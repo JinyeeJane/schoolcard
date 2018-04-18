@@ -65,10 +65,15 @@ public class WebxsController {
 	public String logout(HttpServletRequest request)
 	{
 		request.getSession().removeAttribute("xs");
-		request.getSession().removeAttribute("imgId");
+//		request.getSession().removeAttribute("imgId");
 		
 		return "redirect:http://localhost:8080/schoolcard/";
 	}
+	
+//	@RequestMapping("/test")
+//	public String test(HttpServletRequest request){
+//		return "student/FirstPage";
+//	}
 	
 //	@RequestMapping("/bookRec")
 //	public String bookRec(HttpServletRequest request)

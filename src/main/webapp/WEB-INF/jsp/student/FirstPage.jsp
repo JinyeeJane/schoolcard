@@ -49,7 +49,47 @@
 		integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
 		crossorigin="anonymous"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/echarts.js"/>"></script>
-<script type="text/javascript" src="<c:url value="/resources/js/jquery-3.2.1/jquery-3.2.1.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/laydate/laydate.js"/>"></script>
+
+<script>
+	function getCost() {
+		var li1 = document.getElementById("li1");
+		var li2 = document.getElementById("li2");
+		var li3 = document.getElementById("li3");
+		var li4 = document.getElementById("li4");
+		var menu1 = document.getElementById("menu1");
+		var menu2 = document.getElementById("menu2");
+		var menu3 = document.getElementById("menu3");
+		var menu4 = document.getElementById("menu4");
+		
+		li1.setAttribute("class","tab-title");
+		li1.getElementsByTagName("a")[0].setAttribute("aria-selected","false");
+		li1.getElementsByTagName("a")[0].setAttribute("tabindex","-1");
+		menu1.setAttribute("aria-hidden","true");
+		menu1.setAttribute("class","content");
+		menu1.setAttribute("tabindex","-1");
+		li3.setAttribute("class","tab-title");
+		li3.getElementsByTagName("a")[0].setAttribute("aria-selected","false");
+		li3.getElementsByTagName("a")[0].setAttribute("tabindex","-1");
+		menu3.setAttribute("aria-hidden","true");
+		menu3.setAttribute("class","content");
+		menu3.setAttribute("tabindex","-1");
+		li4.setAttribute("class","tab-title");
+		li4.getElementsByTagName("a")[0].setAttribute("aria-selected","false");
+		li4.getElementsByTagName("a")[0].setAttribute("tabindex","-1");
+		menu4.setAttribute("aria-hidden","true");
+		menu4.setAttribute("class","content");
+		menu4.setAttribute("tabindex","-1");
+		
+		li2.setAttribute("class","tab-title active");
+		li2.getElementsByTagName("a")[0].setAttribute("aria-selected","true");
+		li2.getElementsByTagName("a")[0].setAttribute("tabindex","0");
+		menu2.setAttribute("aria-hidden","false");
+		menu2.setAttribute("class","content active");
+		menu2.setAttribute("tabindex","0");
+		
+	}
+</script>
 
 
 </head>
@@ -73,10 +113,10 @@
 				<a class="nav-item nav-link" href="#">贫困生预测</a>
 			-->
 				<ul class="tabs" data-tab="">
-				  <li class="tab-title active"><a href="<%=basePath%>stuLogin/firstPage" aria-selected="false" tabindex="0">主页</a></li>
-				  <li class="tab-title"><a href="#menu1" aria-selected="false" tabindex="-1">消费情况</a></li>
-				  <li class="tab-title"><a href="#menu2" aria-selected="true" tabindex="-1">成绩预警</a></li>
-				  <li class="tab-title"><a href="#menu3" aria-selected="false" tabindex="-1">推荐系统</a></li>
+				  <li id="li1" class="tab-title active"><a href="<%=basePath%>stuLogin/firstPage" aria-selected="true" tabindex="0">主页</a></li>
+				  <li id="li2" class="tab-title"><a href="javascript:void(0)" aria-selected="false" tabindex="-1" onclick="getCost()">消费情况</a></li>
+				  <li id="li3" class="tab-title"><a href="#menu2" aria-selected="false" tabindex="-1">成绩预警</a></li>
+				  <li id="li4" class="tab-title"><a href="#menu3" aria-selected="false" tabindex="-1">推荐系统</a></li>
 				</ul>
 			</div>
 			
@@ -127,7 +167,7 @@
 				</div>
 			</div>
 			<div class="tabs-content">
-				  <div class="content active" id="home" aria-hidden="false" tabindex="-1">
+				  <div class="content active" id="menu1" aria-hidden="false">
 				  	<div>
 					    <h3>个人首页</h3>
 					    <div id="personalGraph" style="width:800px;height: 400px;">
@@ -177,15 +217,15 @@
 					    	</script>
 					</div>
 				  </div>
-				  <div class="content" id="menu1" aria-hidden="true" tabindex="-1">
-				    <h3>菜单 1</h3>
+				  <div class="content" id="menu2" aria-hidden="true" tabindex="-1">
+				    <h3>消费情况</h3>
 				    <p>一些文本内容 1</p>
 				  </div>
-				  <div class="content" id="menu2" aria-hidden="true">
+				  <div class="content" id="menu3" aria-hidden="true" tabindex="-1">
 				    <h3>菜单 2</h3>
 				    <p>一些文本内容 2</p>
 				  </div>
-				  <div class="content" id="menu3" aria-hidden="true" tabindex="-1">
+				  <div class="content" id="menu4" aria-hidden="true" tabindex="-1">
 				    <h3>菜单 3</h3>
 				    <p>一些文本内容 3</p>
 				  </div>
@@ -334,5 +374,34 @@
 		myChart.setOption(option);
 	</script>
 	 -->
+	 <div>
+	 	<input type="text" id="test2">
+	 	<input type="text" id="test3">
+	 	<input type="text" id="test4">
+	 	<input type="text" id="test5">
+	 </div>
+	 <script>
+	//年选择器
+	 laydate.render({
+	   elem: '#test2'
+	   ,type: 'year'
+	 });
+	 //年月选择器
+	 laydate.render({
+	   elem: '#test3'
+	   ,type: 'month'
+	 });
+	 //时间选择器
+	 laydate.render({
+	   elem: '#test4'
+	   ,type: 'time'
+	 });
+	 //时间选择器
+	 laydate.render({
+	   elem: '#test5'
+	   ,type: 'datetime'
+	 });
+	 </script>
+	 
 </body>
 </html>
