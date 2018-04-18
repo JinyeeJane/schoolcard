@@ -70,6 +70,15 @@ public class WebxsController {
 		return "redirect:http://localhost:8080/schoolcard/";
 	}
 	
+	@RequestMapping("/cost")
+	public String cost(HttpServletRequest request){
+		Webxs xs = (Webxs) request.getSession().getAttribute("xs");
+		String start = request.getParameter("start");
+		String end = request.getParameter("end");
+		System.out.println(xs.getXh()+":"+start+":"+end);
+		return "student/FirstPage";
+	}
+	
 //	@RequestMapping("/test")
 //	public String test(HttpServletRequest request){
 //		return "student/FirstPage";
