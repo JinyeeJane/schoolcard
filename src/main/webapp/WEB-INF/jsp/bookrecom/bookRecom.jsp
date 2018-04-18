@@ -133,41 +133,79 @@
 </div>
 
 <!-- 初始化 Foundation JS -->
-<script type="text/javascript">
-    $(document).ready(function() {
+    <script type="text/javascript">
+        $(document).ready(function() {
 
 
-        $(document).foundation();
+            $(document).foundation();
 
-    });
+        });
 
-    function allhtml() {
-        document.getElementById("showSearchResult").innerHTML ="";
-            $.ajax({
-                type: "POST",
-                url: "<%=basePath%>bookrecom/search",
-//                data: $("#query").val(),
-                data: { query : $("#query").val()},
-                dataType:'html',
+        function allhtml() {
+            document.getElementById("showSearchResult").innerHTML ="";
+                $.ajax({
+                    type: "POST",
+                    url: "<%=basePath%>bookrecom/search",
+    //                data: $("#query").val(),
+                    data: { query : $("#query").val()},
+                    dataType:'html',
 
-                success:function(response){
+                    success:function(response){
 
-                    document.getElementById("showSearchResult").innerHTML = response;
+                        document.getElementById("showSearchResult").innerHTML = response;
 
-                    console.log("Details saved successfully!!!");
+                        console.log("Details saved successfully!!!");
+                    },
+
+                    error: function () {
+
+                        console.log("Details saved default!!!");
+                    }
+                });
+        }
+
+    </script>
+
+    <script>
+        $('#ca').calendar({
+            width: 320,
+            height: 320,
+            data: [
+                {
+                    date: '2015/12/24',
+                    value: 'Christmas Eve'
                 },
-
-                error: function () {
-
-                    console.log("Details saved default!!!");
+                {
+                    date: '2015/12/25',
+                    value: 'Merry Christmas'
+                },
+                {
+                    date: '2016/01/01',
+                    value: 'Happy New Year'
                 }
-            });
-    }
+            ],
+            onSelected: function (view, date, data) {
+                console.log('view:' + view)
+                alert('date:' + date)
+                console.log('data:' + (data || 'None'));
+            }
+        });
 
-
-</script>
-
-
+        $('#dd').calendar({
+            trigger: '#dt',
+            zIndex: 999,
+            format: 'yyyy-mm-dd',
+            onSelected: function (view, date, data) {
+                console.log('event: onSelected')
+            },
+            onClose: function (view, date, data) {
+                console.log('event: onClose')
+                console.log('view:' + view)
+                console.log('date:' + date)
+                console.log('data:' + (data || 'None'));
+            }
+        });
+    </script>
 </body>
 </html>
 

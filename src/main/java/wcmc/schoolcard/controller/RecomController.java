@@ -44,7 +44,7 @@ public class RecomController {
 
         String readerid = webReaderinfo.getReaderid();
 
-        WebRecomtop15 webRecomtop15 = webRecomTop15Service.selectByPrimaryKey(readerid);
+        //借阅历史
 
         List<Webborrow> listOfBrorrow;
 
@@ -60,6 +60,10 @@ public class RecomController {
         }
 
         model.addAttribute("listOfBroBookInfo", listOfBroBookInfo);
+
+        //个性化推荐
+
+        WebRecomtop15 webRecomtop15 = webRecomTop15Service.selectByPrimaryKey(readerid);
 
         List<Webbookinfo> listOfRecBooks = new ArrayList<>();
 
@@ -85,45 +89,27 @@ public class RecomController {
         return "bookrecom/bookRecom";
     }
 
-
-
     @RequestMapping("/search")
     public String SearchBook(HttpServletRequest request, Model model){
+        //根据书籍名字或作者名字查询书籍
         String query = request.getParameter("query");
         List<Webbookinfo> result4query = webBookInfoService.selectByBookOrAuthorName('%'+query+'%');
-        Gson gson = new Gson();
-
-        String jsonResult4query =  gson.toJson(result4query);
-        model.addAttribute("jsonResult4query", jsonResult4query);
+//        Gson gson = new Gson();
+//
+//        String jsonResult4query =  gson.toJson(result4query);
+//        model.addAttribute("jsonResult4query", jsonResult4query);
         model.addAttribute("result4query", result4query);
-        System.out.println(jsonResult4query);
+//        System.out.println(jsonResult4query);
         System.out.println(result4query.size());
         return "bookrecom/ajax/search";
     }
 
-
-//    @RequestMapping("/showstat")
-//    public String RecomStatistics(HttpServletRequest request, Model model){
-//        String type = request.getParameter("type");
-//        Webrecomstatistics Webrecomstatistics = webRecomStatisticsService.selectByType(type);
-//        model.addAttribute("RecomStatistics", Webrecomstatistics);
-//        return "selectStatByType";
-//    }
-
-
-    @RequestMapping("/showHisBorrow")
-    public String showHisBorrow(HttpServletRequest request, Model model){
-        String readerid = request.getParameter("readerid");
-        List<Webborrow> listOfBrorrow;
-        List<Webbookinfo> listOfBroBookInfo = new ArrayList<>();
-        listOfBrorrow = webBorrowService.selectByReaderId(readerid);
-        Webbookinfo webbookinfo;
-        for(int i=0;i<listOfBrorrow.size();i++) {
-            webbookinfo = webBookInfoService.selectByPrimaryKey(listOfBrorrow.get(i).getBookid());
-            listOfBroBookInfo.add(webbookinfo);
-        }
-
-        model.addAttribute("listOfBroBookInfo", listOfBroBookInfo);
-        return "showHisBorrow";
+    @RequestMapping("/hotbook")
+    public String RecomStatistics(HttpServletRequest request, Model model){
+        //热门书籍查询
+        String type = request.getParameter("type");
+        Webrecomstatistics hotbook = webRecomStatisticsService.selectByType(type);
+        model.addAttribute("hotbook", hotbook);
+        return "bookrecom/ajax/hotBook";
     }
 }
