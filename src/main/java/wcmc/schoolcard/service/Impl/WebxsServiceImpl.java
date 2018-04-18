@@ -82,7 +82,7 @@ public class WebxsServiceImpl implements WebxsService{
 		if (year > 4) {
 			year = 4;
 		}
-		//²Í¾ùÏû·Ñ
+		//é¤å‡æ¶ˆè´¹
 		BigDecimal averageCanteen;
 		BigDecimal frequentCanteen;
 		Webcanteen webcanteen = webcanteenMapper.getWebcanteenByXH(xh);
@@ -91,10 +91,10 @@ public class WebxsServiceImpl implements WebxsService{
 			frequentCanteen = new BigDecimal(0);
 		} else {
 			averageCanteen = webcanteen.getCanteenSum().multiply(new BigDecimal(-1)).divide(webcanteen.getCanteenTimes(), 2, BigDecimal.ROUND_HALF_UP);
-			//²ÍÒûÆµ´Î
+			//é¤é¥®é¢‘æ¬¡
 			frequentCanteen = webcanteen.getCanteenTimes().divide(new BigDecimal(year), 2, BigDecimal.ROUND_HALF_UP);
 		}
-		//Æ½¾ù³É¼¨¼°¹Ò¿ÆÆµ´Î, mÓÃÓÚ±íÊ¾¹Ò¿ÆÆµ´Î
+		//å¹³å‡æˆç»©åŠæŒ‚ç§‘é¢‘æ¬¡, mç”¨äºè¡¨ç¤ºæŒ‚ç§‘é¢‘æ¬¡
 		List<Webgrade> grades = webgradeMapper.getGradeById(id);
 		double averageGrade = 0;
 		int m = 0;
@@ -116,14 +116,14 @@ public class WebxsServiceImpl implements WebxsService{
 					n += 1;
 				} catch (Exception e) {
 					// TODO: handle exception
-					if (fs.equals("²»ºÏ¸ñ") || fs.equals("²»Í¨¹ı") || fs.equals("²»¼°¸ñ")) {
+					if (fs.equals("ä¸åˆæ ¼") || fs.equals("ä¸é€šè¿‡") || fs.equals("ä¸åŠæ ¼")) {
 						m += 1;
 					}
 				}
 			}
 			averageGrade = total / n;
 		}
-		//½èÊéÆµ´Î
+		//å€Ÿä¹¦é¢‘æ¬¡
 		BigDecimal frequentBorrow = new BigDecimal(0);
 		if (webborrowtimesMapper.getWebborrowtimesByXH(xh) != null) {
 			frequentBorrow = webborrowtimesMapper.getWebborrowtimesByXH(xh).getBorrowTimes().divide(new BigDecimal(year), 2, BigDecimal.ROUND_HALF_UP);

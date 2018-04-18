@@ -42,7 +42,7 @@ public class WebxsController {
 			session.setAttribute("xs", webxs);
 			WebReaderinfo webReaderinfo = webReaderinfoService.selectByXh(xh);
 			
-			//用户画像数据
+			//瀛︾敓鐢诲儚
 			session.setAttribute("personalGraph", webxsService.getPersonalInfo(xh));
 			
 			model.addAttribute("webReaderinfo", webReaderinfo);
