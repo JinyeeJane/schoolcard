@@ -82,7 +82,7 @@ public class WebxsServiceImpl implements WebxsService{
 		if (year > 4) {
 			year = 4;
 		}
-		//�;�����
+		//餐均消费
 		BigDecimal averageCanteen;
 		BigDecimal frequentCanteen;
 		Webcanteen webcanteen = webcanteenMapper.getWebcanteenByXH(xh);
@@ -91,10 +91,10 @@ public class WebxsServiceImpl implements WebxsService{
 			frequentCanteen = new BigDecimal(0);
 		} else {
 			averageCanteen = webcanteen.getCanteenSum().multiply(new BigDecimal(-1)).divide(webcanteen.getCanteenTimes(), 2, BigDecimal.ROUND_HALF_UP);
-			//����Ƶ��
+			//餐饮频次
 			frequentCanteen = webcanteen.getCanteenTimes().divide(new BigDecimal(year), 2, BigDecimal.ROUND_HALF_UP);
 		}
-		//ƽ���ɼ����ҿ�Ƶ��, m���ڱ�ʾ�ҿ�Ƶ��
+		//平均成绩及挂科频次, m用于表示挂科频次
 		List<Webgrade> grades = webgradeMapper.getGradeById(id);
 		double averageGrade = 0;
 		int m = 0;
@@ -116,14 +116,14 @@ public class WebxsServiceImpl implements WebxsService{
 					n += 1;
 				} catch (Exception e) {
 					// TODO: handle exception
-					if (fs.equals("���ϸ�") || fs.equals("��ͨ��") || fs.equals("������")) {
+					if (fs.equals("不合格") || fs.equals("不通过") || fs.equals("不及格")) {
 						m += 1;
 					}
 				}
 			}
 			averageGrade = total / n;
 		}
-		//����Ƶ��
+		//借书频次
 		BigDecimal frequentBorrow = new BigDecimal(0);
 		if (webborrowtimesMapper.getWebborrowtimesByXH(xh) != null) {
 			frequentBorrow = webborrowtimesMapper.getWebborrowtimesByXH(xh).getBorrowTimes().divide(new BigDecimal(year), 2, BigDecimal.ROUND_HALF_UP);
