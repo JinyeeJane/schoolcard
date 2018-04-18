@@ -40,17 +40,17 @@ public class WebxsController {
 		{
 			HttpSession session = request.getSession();
 			session.setAttribute("xs", webxs);
-			WebReaderinfo webReaderinfo = webReaderinfoService.selectByXh(xh);
+//			WebReaderinfo webReaderinfo = webReaderinfoService.selectByXh(xh);
 			
 			//学生画像
 			session.setAttribute("personalGraph", webxsService.getPersonalInfo(xh));
 			
-			model.addAttribute("webReaderinfo", webReaderinfo);
-			String imgId = webReaderinfo.getReaderid()+".jpg";
-			session.setAttribute("imgId",imgId);
-			String type = "MOSTBorrow";
-			Webrecomstatistics webrecomstatistics = webRecomStatisticsService.selectByType(type);
-			model.addAttribute("webrecomstatistics", webrecomstatistics);
+//			model.addAttribute("webReaderinfo", webReaderinfo);
+//			String imgId = webReaderinfo.getReaderid()+".jpg";
+//			session.setAttribute("imgId",imgId);
+//			String type = "MOSTBorrow";
+//			Webrecomstatistics webrecomstatistics = webRecomStatisticsService.selectByType(type);
+//			model.addAttribute("webrecomstatistics", webrecomstatistics);
 			return "student/FirstPage";
 		}
 		else
