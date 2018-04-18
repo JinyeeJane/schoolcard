@@ -70,11 +70,11 @@ public class WebxsController {
 		return "redirect:http://localhost:8080/schoolcard/";
 	}
 	
-	@RequestMapping("/bookRec")
-	public String bookRec(HttpServletRequest request)
-	{
-		System.out.println("bookRec");
-		return "BookRec";
-	}
+//	@RequestMapping("/bookRec")
+//	public String bookRec(HttpServletRequest request)
+//	{
+//		System.out.println("bookRec");
+//		return "BookRec";
+//	}
 	
 }
