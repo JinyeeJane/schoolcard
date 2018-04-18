@@ -71,12 +71,16 @@ public class WebxsController {
 	}
 	
 	@RequestMapping("/cost")
-	public String cost(HttpServletRequest request){
+	public void cost(HttpServletRequest request){
 		Webxs xs = (Webxs) request.getSession().getAttribute("xs");
-		String start = request.getParameter("start");
-		String end = request.getParameter("end");
-		System.out.println(xs.getXh()+":"+start+":"+end);
-		return "student/FirstPage";
+		int start = Integer.parseInt(request.getParameter("start").replaceAll("-", ""));
+		int end = Integer.parseInt(request.getParameter("end").replaceAll("-", ""));
+		
+		
+		
+//		System.out.println(xs.getXh()+":"+start+":"+end);
+		
+//		return "student/FirstPage";
 	}
 	
 //	@RequestMapping("/test")

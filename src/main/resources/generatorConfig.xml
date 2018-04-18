@@ -67,7 +67,6 @@
 			   enableSelectByPrimaryKey="true" enableInsert="false"
 		>
 		</table>
-		-->
 		
 		<table schema="" tableName="WEBGRADE" domainObjectName="Webgrade"
 			   enableCountByExample="false" enableUpdateByExample="false"
@@ -102,6 +101,15 @@
 		</table>
 		
 		<table schema="" tableName="WEBBORROWTIMES" domainObjectName="Webborrowtimes"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false" enableUpdateByPrimaryKey="false"
+			   enableSelectByPrimaryKey="true" enableInsert="false"
+		>
+		</table>
+		-->
+		
+		<table schema="" tableName="WEBYKTLS" domainObjectName="Webyktls"
 			   enableCountByExample="false" enableUpdateByExample="false"
 			   enableDeleteByExample="false" enableSelectByExample="false"
 			   selectByExampleQueryId="false" enableUpdateByPrimaryKey="false"

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wcmc.schoolcard.dao.WebyktlsMapper" >
+  <resultMap id="BaseResultMap" type="wcmc.schoolcard.dto.Webyktls" >
+    <result column="XGH" property="xgh" jdbcType="VARCHAR" />
+    <result column="SJJYE" property="sjjye" jdbcType="DECIMAL" />
+    <result column="JYSJ" property="jysj" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>
