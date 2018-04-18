@@ -23,10 +23,10 @@ public class WebxsController {
 	
 	@Autowired
 	private WebxsService webxsService;
-	@Autowired
-	private WebReaderinfoService webReaderinfoService;
-	@Autowired
-	private WebRecomStatisticsService webRecomStatisticsService;
+//	@Autowired
+//	private WebReaderinfoService webReaderinfoService;
+//	@Autowired
+//	private WebRecomStatisticsService webRecomStatisticsService;
 	
 	@RequestMapping("/login")
 	public String login(HttpServletRequest request,Model model)
