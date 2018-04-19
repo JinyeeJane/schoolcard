@@ -31,7 +31,6 @@ public class LoginInterceptor implements HandlerInterceptor{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
 			Object handle) throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("interceptor");
 		HttpSession session = request.getSession();
 		Webxs webxs = (Webxs)session.getAttribute("xs");
 		Webteacher webteacher = (Webteacher)session.getAttribute("teacher");
