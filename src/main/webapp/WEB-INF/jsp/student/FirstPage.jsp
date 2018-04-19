@@ -89,25 +89,7 @@
 		menu2.setAttribute("tabindex","0");
 	}
 	
-	function getCostDetail() {
-		var start = document.getElementById("start").value;
-		var end = document.getElementById("end").value;
-		//1/得到xhr对象  
-        var xhr = new XMLHttpRequest();  
-        //2.注册状态变化监听器  
-        xhr.onreadystatechange=function(){  
-            if(xhr.readyState==4)  {  
-                if(xhr.status==200)  {
-                	
-                }  
-            }  
-        }
-        //3.建立与服务器的连接  
-        xhr.open("POST", "<%=basePath%>stuLogin/cost");  
-        xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-        //4.向服务器发出请求  
-        xhr.send("start="+start+"&end="+end);
-	}
+	
 </script>
 
 
@@ -239,9 +221,97 @@
 				  <div class="content" id="menu2" aria-hidden="true" tabindex="-1">
 				    <h3>消费情况</h3>
 				  	起始时间<input type="text" id="start" size="15">截止时间<input type="text" id="end" size="15">
-				  	<button type="button" class="button" onclick="getCostDetail()">确定</button>
+				  	<button id="getTime" type="button" class="button" >确定</button>
 				  	<div id="costDetail" style="width:800px;height: 400px;">
 				  	</div>
+				  	<!--
+				  	<script>
+				  	function getCostDetail() {
+						//var list = ${list};
+						var start = document.getElementById("start").value;
+						var end = document.getElementById("end").value;
+						//1/得到xhr对象  
+				        var xhr = new XMLHttpRequest();  
+				        //2.注册状态变化监听器  
+				        xhr.onreadystatechange=function(){  
+				            if(xhr.readyState==4)  {  
+				                if(xhr.status==200)  {
+				                	var cost = echarts.init(document.getElementById('costDetail'));
+								  	var result = ${sessionScope.cost};
+								  	var keyarr = [];
+									var valarr = [];
+									for (var item in result) {
+										keyarr.push(item);
+										valarr.push(result[item]);
+				
+									}
+								  	var	option = {
+								  		    xAxis: {
+								  		        type: 'category',
+								  		        data: keyarr
+								  		    },
+								  		    yAxis: {
+								  		        type: 'value'
+								  		    },
+								  		    series: [{
+								  		        data: valarr,
+								  		        type: 'line'
+								  		    }]
+								  		};
+								  	cost.setOption(option);
+				                }  
+				            }  
+				        }
+				        //3.建立与服务器的连接  
+				        xhr.open("POST", "<%=basePath%>stuLogin/cost");  
+				        xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+				        //4.向服务器发出请求  
+				        xhr.send("start="+start+"&end="+end);
+					}
+				  	</script>
+				  	-->
+				  	<script>
+				  	$('#getTime').click(function(){
+					  	var start = document.getElementById("start").value;
+						var end = document.getElementById("end").value;
+						alert(start+"---"+end);
+					  	var cost = echarts.init(document.getElementById('costDetail'));	
+					  	var key=[];    
+				        var value=[];
+				        jQuery.ajax({
+					         type : "post",
+					         async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+					         url : "<%=basePath%>stuLogin/cost",    
+					         data : {start:start, end:end},
+					         dataType : "json",        //返回数据形式为json
+					         success : function(result) {
+					             //请求成功时执行该函数内容，result即为服务器返回的json对象
+					             if (result) {
+					                    for(var i=0;i<result.length;i++){       
+					                        key.push(result[i].key);    //挨个取出类别并填入类别数组
+					                    }
+					                    for(var i=0;i<result.length;i++){       
+					                        value.push(result[i].value);    //挨个取出销量并填入销量数组
+					                    }
+					                    cost.setOption({        //加载数据图表
+					                    	xAxis: {
+								  		        type: 'category',
+								  		        data: key
+								  		    },
+								  		    yAxis: {
+								  		        type: 'value'
+								  		    },
+								  		    series: [{
+								  		        data: value,
+								  		        type: 'line'
+								  		    }]
+					                    });
+					             }
+					         
+					        }
+					    });
+				  	});
+				  	</script>
 				    <script>
 					 	laydate.render({
 							elem: '#start',

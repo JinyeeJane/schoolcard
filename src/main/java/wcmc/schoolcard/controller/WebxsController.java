@@ -1,8 +1,13 @@
 package wcmc.schoolcard.controller;
 
+import java.util.List;
+import java.util.TreeMap;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+
+import oracle.net.aso.e;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import wcmc.schoolcard.dto.WebReaderinfo;
 import wcmc.schoolcard.dto.Webrecomstatistics;
 import wcmc.schoolcard.dto.Webxs;
+import wcmc.schoolcard.dto.Webyktls;
 import wcmc.schoolcard.service.WebReaderinfoService;
 import wcmc.schoolcard.service.WebRecomStatisticsService;
 import wcmc.schoolcard.service.WebxsService;
+import wcmc.schoolcard.service.WebyktlsService;
 
 
 @Controller
@@ -23,6 +30,8 @@ public class WebxsController {
 	
 	@Autowired
 	private WebxsService webxsService;
+	@Autowired
+	private WebyktlsService webyktlsService; 
 //	@Autowired
 //	private WebReaderinfoService webReaderinfoService;
 //	@Autowired
@@ -71,12 +80,17 @@ public class WebxsController {
 	}
 	
 	@RequestMapping("/cost")
-	public void cost(HttpServletRequest request){
+	public void cost(HttpServletRequest request, Model model){
 		Webxs xs = (Webxs) request.getSession().getAttribute("xs");
-		int start = Integer.parseInt(request.getParameter("start").replaceAll("-", ""));
-		int end = Integer.parseInt(request.getParameter("end").replaceAll("-", ""));
-		
-		
+		String start = request.getParameter("start");
+		String end = request.getParameter("end");
+//		System.out.println(start+"-"+ end);
+		TreeMap<String, Double> map = webyktlsService.getYktlsByStartAndEnd(xs.getXh(), start, end);
+		System.out.println(map.size());
+		for (String s : map.keySet()) {
+			System.out.println(s+":"+map.get(s));
+		}
+		request.getSession().setAttribute("cost", map);
 		
 //		System.out.println(xs.getXh()+":"+start+":"+end);
 		
