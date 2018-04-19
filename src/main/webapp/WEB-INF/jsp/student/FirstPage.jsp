@@ -87,7 +87,26 @@
 		menu2.setAttribute("aria-hidden","false");
 		menu2.setAttribute("class","content active");
 		menu2.setAttribute("tabindex","0");
-		
+	}
+	
+	function getCostDetail() {
+		var start = document.getElementById("start").value;
+		var end = document.getElementById("end").value;
+		//1/得到xhr对象  
+        var xhr = new XMLHttpRequest();  
+        //2.注册状态变化监听器  
+        xhr.onreadystatechange=function(){  
+            if(xhr.readyState==4)  {  
+                if(xhr.status==200)  {
+                	
+                }  
+            }  
+        }
+        //3.建立与服务器的连接  
+        xhr.open("POST", "<%=basePath%>stuLogin/cost");  
+        xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        //4.向服务器发出请求  
+        xhr.send("start="+start+"&end="+end);
 	}
 </script>
 
@@ -213,13 +232,26 @@
 					    			    }]
 					    			}]
 					    		}; 
-					    		myChart.setOption(option);
-					    	</script>
+					    	myChart.setOption(option);
+					    </script>
 					</div>
 				  </div>
 				  <div class="content" id="menu2" aria-hidden="true" tabindex="-1">
 				    <h3>消费情况</h3>
-				    <p>一些文本内容 1</p>
+				  	起始时间<input type="text" id="start" size="15">截止时间<input type="text" id="end" size="15">
+				  	<button type="button" class="button" onclick="getCostDetail()">确定</button>
+				  	<div id="costDetail" style="width:800px;height: 400px;">
+				  	</div>
+				    <script>
+					 	laydate.render({
+							elem: '#start',
+							theme: 'molv'
+						});
+					 	laydate.render({
+							elem: '#end',
+							theme: 'molv'
+						});
+					</script>
 				  </div>
 				  <div class="content" id="menu3" aria-hidden="true" tabindex="-1">
 				    <h3>菜单 2</h3>
@@ -374,6 +406,7 @@
 		myChart.setOption(option);
 	</script>
 	 -->
+	 <!-- 
 	 <div>
 	 	<input type="text" id="test2">
 	 	<input type="text" id="test3">
@@ -402,6 +435,6 @@
 	   ,type: 'datetime'
 	 });
 	 </script>
-	 
+	  -->
 </body>
 </html>
