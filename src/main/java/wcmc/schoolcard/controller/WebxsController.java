@@ -10,6 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import wcmc.schoolcard.dto.WebReaderinfo;
 import wcmc.schoolcard.dto.Webrecomstatistics;
@@ -76,18 +80,17 @@ public class WebxsController {
 		return "redirect:http://localhost:8080/schoolcard/";
 	}
 	
-	@RequestMapping("/cost")
-	public void cost(HttpServletRequest request, Model model){
+	@RequestMapping(value="/cost", produces="application/json;charset=UTF-8;")
+	public @ResponseBody String cost(HttpServletRequest request, Model model){
 		Webxs xs = (Webxs) request.getSession().getAttribute("xs");
 		String start = request.getParameter("start");
 		String end = request.getParameter("end");
 //		System.out.println(start+"-"+ end);
 		TreeMap<String, Double> map = webyktlsService.getYktlsByStartAndEnd(xs.getXh(), start, end);
-		System.out.println(map.size());
-		for (String s : map.keySet()) {
-			System.out.println(s+":"+map.get(s));
-		}
-		request.getSession().setAttribute("cost", map);
+		Gson gson = new Gson();
+        String cost= gson.toJson(map);
+        System.out.println(cost);
+		return cost;
 		
 //		System.out.println(xs.getXh()+":"+start+":"+end);
 		

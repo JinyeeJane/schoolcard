@@ -30,26 +30,12 @@
 <!-- css 文件 -->
 <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/foundation/5.5.3/css/foundation.min.css">
 
-<!-- jQuery 库 -->
-<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-
-<!-- JavaScript 文件 -->
-<script src="http://cdn.static.runoob.com/libs/foundation/5.5.3/js/foundation.min.js"></script>
-
-<!-- modernizr.js 文件 -->
-<script src="http://cdn.static.runoob.com/libs/foundation/5.5.3/js/vendor/modernizr.js"></script>
-
-<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js"
-		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-		crossorigin="anonymous"></script>
-<script src="https://cdn.bootcss.com/popper.js/1.12.3/umd/popper.min.js"
-		integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
-		crossorigin="anonymous"></script>
-<script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
-		integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
-		crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/echarts.js"/>"></script>
+<script src="https://cdn.bootcss.com/foundation/5.5.3/js/foundation.min.js"></script>
+<script src="https://cdn.bootcss.com/foundation/5.5.3/js/vendor/modernizr.js"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/laydate/laydate.js"/>"></script>
+<script src="<c:url value="/resources/js/layui/layui.js"/>" charset="utf-8"></script>
 
 <script>
 	function getCost() {
@@ -274,42 +260,43 @@
 				  	$('#getTime').click(function(){
 					  	var start = document.getElementById("start").value;
 						var end = document.getElementById("end").value;
-						alert(start+"---"+end);
 					  	var cost = echarts.init(document.getElementById('costDetail'));	
+					  	//var data = ${cost};
 					  	var key=[];    
 				        var value=[];
-				        jQuery.ajax({
-					         type : "post",
-					         async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
-					         url : "<%=basePath%>stuLogin/cost",    
-					         data : {start:start, end:end},
-					         dataType : "json",        //返回数据形式为json
-					         success : function(result) {
-					             //请求成功时执行该函数内容，result即为服务器返回的json对象
-					             if (result) {
-					                    for(var i=0;i<result.length;i++){       
-					                        key.push(result[i].key);    //挨个取出类别并填入类别数组
-					                    }
-					                    for(var i=0;i<result.length;i++){       
-					                        value.push(result[i].value);    //挨个取出销量并填入销量数组
-					                    }
-					                    cost.setOption({        //加载数据图表
-					                    	xAxis: {
-								  		        type: 'category',
-								  		        data: key
-								  		    },
-								  		    yAxis: {
-								  		        type: 'value'
-								  		    },
-								  		    series: [{
-								  		        data: value,
-								  		        type: 'line'
-								  		    }]
-					                    });
-					             }
-					         
-					        }
-					    });
+				        //for (var item in data) {
+				        //    key.push(data[item].key);
+				        //    val.push(data[item].value);
+				        //}
+				        cost.setOption({        //加载数据图表
+	                    	xAxis: {
+				  		        type: 'category',
+				  		        data: key
+				  		    },
+				  		    yAxis: {
+				  		        type: 'value'
+				  		    },
+				  		    series: [{
+				  		        data: value,
+				  		        type: 'line'
+				  		    }]
+	                    });
+				        $.post('<%=basePath%>stuLogin/cost', {'start': start, 'end' : end}).done(function (data) {
+				        	//alert(data);
+				        	for (var item in data) {
+			                    key.push(item);
+			                    value.push(data[item]);
+			                }
+				        	cost.setOption({
+				        		xAxis: {
+					  		        data: key
+					  		    },
+					  		  	series: [{
+					  		        data: value
+					  		    }]
+				        	});
+				        });
+				        
 				  	});
 				  	</script>
 				    <script>
