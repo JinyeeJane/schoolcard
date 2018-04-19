@@ -4,17 +4,9 @@ package wcmc.schoolcard.dto;
  * Created by Channings on 18/4/18.
  */
 public class Result4Hotbook {
-    String bookid;
     String title;
-    String borrowtimes;
+    int borrowtimes;
 
-    public String getBookid() {
-        return bookid;
-    }
-
-    public void setBookid(String bookid) {
-        this.bookid = bookid;
-    }
 
     public String getTitle() {
         return title;
@@ -24,11 +16,11 @@ public class Result4Hotbook {
         this.title = title;
     }
 
-    public String getBorrowtimes() {
+    public int getBorrowtimes() {
         return borrowtimes;
     }
 
-    public void setBorrowtimes(String borrowtimes) {
+    public void setBorrowtimes(int borrowtimes) {
         this.borrowtimes = borrowtimes;
     }
 }

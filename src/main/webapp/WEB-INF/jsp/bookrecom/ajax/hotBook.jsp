@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%
     String path = request.getContextPath();
@@ -24,24 +25,27 @@
 </head>
 <body>
 
-<div id="hotbook" style="width:800px;height: 400px;"> </div>
+    <div id="hotbook" width="200" height="150">
+        <%--<c:forEach items="${hotbook}" var="item">--%>
+            <%--${item.title} ${item.borrowtimes}--%>
+        <%--</c:forEach>--%>
+    </div>
 
 <script type="text/javascript">
-
-    var data = ${hotbook.data};
+    console.log(1);
+    var data = ${hotbook};
+    console.log(typeof data);
     var keyarr = [];
     var valarr = [];
     for (var item in data) {
-        keyarr.push(item);
-        valarr.push(data[item]);
-
+        keyarr.push(item.title);
+        valarr.push(item.borrowtimes);
     }
-    console.log(data);
     var myChart = echarts.init(document.getElementById('hotbook'));
     var option = {
         title: {
-            text: '借阅Top15',
-            subtext: '图书馆借阅次数top15的书籍'
+            text: '借阅Top20',
+            subtext: '图书馆借阅次数top20的书籍'
         },
         color: ['#008080'],
         tooltip: {
@@ -81,7 +85,6 @@
             }
         ]
     };
-
     myChart.setOption(option);
 </script>
 </body>
