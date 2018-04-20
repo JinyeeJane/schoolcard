@@ -89,7 +89,6 @@ public class WebxsController {
 		TreeMap<String, Double> map = webyktlsService.getYktlsByStartAndEnd(xs.getXh(), start, end);
 		Gson gson = new Gson();
         String cost= gson.toJson(map);
-        System.out.println(cost);
 		return cost;
 		
 //		System.out.println(xs.getXh()+":"+start+":"+end);
