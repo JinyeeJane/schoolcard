@@ -1,4 +1,4 @@
-<%@page import="wcmc.schoolcard.dto.Webxs"%>
+<%@ page import="wcmc.schoolcard.dto.Webxs"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%
@@ -75,6 +75,43 @@
 		menu2.setAttribute("tabindex","0");
 	}
 	
+	function getFirst() {
+		var li1 = document.getElementById("li1");
+		var li2 = document.getElementById("li2");
+		var li3 = document.getElementById("li3");
+		var li4 = document.getElementById("li4");
+		var menu1 = document.getElementById("menu1");
+		var menu2 = document.getElementById("menu2");
+		var menu3 = document.getElementById("menu3");
+		var menu4 = document.getElementById("menu4");
+		
+		li2.setAttribute("class","tab-title");
+		li2.getElementsByTagName("a")[0].setAttribute("aria-selected","false");
+		li2.getElementsByTagName("a")[0].setAttribute("tabindex","-1");
+		menu2.setAttribute("aria-hidden","true");
+		menu2.setAttribute("class","content");
+		menu2.setAttribute("tabindex","-1");
+		li3.setAttribute("class","tab-title");
+		li3.getElementsByTagName("a")[0].setAttribute("aria-selected","false");
+		li3.getElementsByTagName("a")[0].setAttribute("tabindex","-1");
+		menu3.setAttribute("aria-hidden","true");
+		menu3.setAttribute("class","content");
+		menu3.setAttribute("tabindex","-1");
+		li4.setAttribute("class","tab-title");
+		li4.getElementsByTagName("a")[0].setAttribute("aria-selected","false");
+		li4.getElementsByTagName("a")[0].setAttribute("tabindex","-1");
+		menu4.setAttribute("aria-hidden","true");
+		menu4.setAttribute("class","content");
+		menu4.setAttribute("tabindex","-1");
+		
+		li1.setAttribute("class","tab-title active");
+		li1.getElementsByTagName("a")[0].setAttribute("aria-selected","true");
+		li1.getElementsByTagName("a")[0].setAttribute("tabindex","0");
+		menu1.setAttribute("aria-hidden","false");
+		menu1.setAttribute("class","content active");
+		menu1.setAttribute("tabindex","0");
+	}
+	
 	
 </script>
 
@@ -82,14 +119,9 @@
 </head>
 
 <body>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark"> <a
-		class="navbar-brand  disabled" href="#">一 卡 通 系 统 </a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse"
-		data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
-		aria-expanded="false" aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	</button>
+	
 	<div class="row  container-fluid">
+		<h2>校园一卡通数据挖掘展示系统</h2>
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			
 			<div class="navbar-nav col-sm-10 row">
@@ -100,7 +132,7 @@
 				<a class="nav-item nav-link" href="#">贫困生预测</a>
 			-->
 				<ul class="tabs" data-tab="">
-				  <li id="li1" class="tab-title active"><a href="<%=basePath%>stuLogin/firstPage" aria-selected="true" tabindex="0">主页</a></li>
+				  <li id="li1" class="tab-title active"><a href="<%=basePath%>stuLogin/firstPage" aria-selected="true" tabindex="0" onclick="getFirst()">学生主页</a></li>
 				  <li id="li2" class="tab-title"><a href="javascript:void(0)" aria-selected="false" tabindex="-1" onclick="getCost()">消费情况</a></li>
 				  <li id="li3" class="tab-title"><a href="#menu2" aria-selected="false" tabindex="-1">成绩预警</a></li>
 				  <li id="li4" class="tab-title"><a href="#menu3" aria-selected="false" tabindex="-1">推荐系统</a></li>
@@ -210,56 +242,14 @@
 				  	<button id="getTime" type="button" class="button" >确定</button>
 				  	<div id="costDetail" style="width:800px;height: 400px;">
 				  	</div>
-				  	<!--
-				  	<script>
-				  	function getCostDetail() {
-						//var list = ${list};
-						var start = document.getElementById("start").value;
-						var end = document.getElementById("end").value;
-						//1/得到xhr对象  
-				        var xhr = new XMLHttpRequest();  
-				        //2.注册状态变化监听器  
-				        xhr.onreadystatechange=function(){  
-				            if(xhr.readyState==4)  {  
-				                if(xhr.status==200)  {
-				                	var cost = echarts.init(document.getElementById('costDetail'));
-								  	var result = ${sessionScope.cost};
-								  	var keyarr = [];
-									var valarr = [];
-									for (var item in result) {
-										keyarr.push(item);
-										valarr.push(result[item]);
-				
-									}
-								  	var	option = {
-								  		    xAxis: {
-								  		        type: 'category',
-								  		        data: keyarr
-								  		    },
-								  		    yAxis: {
-								  		        type: 'value'
-								  		    },
-								  		    series: [{
-								  		        data: valarr,
-								  		        type: 'line'
-								  		    }]
-								  		};
-								  	cost.setOption(option);
-				                }  
-				            }  
-				        }
-				        //3.建立与服务器的连接  
-				        xhr.open("POST", "<%=basePath%>stuLogin/cost");  
-				        xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-				        //4.向服务器发出请求  
-				        xhr.send("start="+start+"&end="+end);
-					}
-				  	</script>
-				  	-->
 				  	<script>
 				  	$('#getTime').click(function(){
 					  	var start = document.getElementById("start").value;
 						var end = document.getElementById("end").value;
+						if (parseInt(end.replace("-","").replace("-","")) < parseInt(start.replace("-","").replace("-","")) ) {
+							alert("时间段不合法");
+							return false;
+						}
 					  	var cost = echarts.init(document.getElementById('costDetail'));	
 					  	//var data = ${cost};
 					  	var key=[];    
@@ -283,18 +273,27 @@
 	                    });
 				        $.post('<%=basePath%>stuLogin/cost', {'start': start, 'end' : end}).done(function (data) {
 				        	//alert(data);
-				        	for (var item in data) {
-			                    key.push(item);
-			                    value.push(data[item]);
-			                }
-				        	cost.setOption({
-				        		xAxis: {
-					  		        data: key
-					  		    },
-					  		  	series: [{
-					  		        data: value
-					  		    }]
-				        	});
+				        	var dataLength = 0;
+				        	for(var i in data){
+				        		dataLength++;
+				        	}
+				        	if (dataLength > 0) {
+				        		for (var item in data) {
+				                    key.push(item);
+				                    value.push(data[item]);
+				                }
+					        	cost.setOption({
+					        		xAxis: {
+						  		        data: key
+						  		    },
+						  		  	series: [{
+						  		        data: value
+						  		    }]
+					        	});
+							} else {
+								alert("该时间段内没有消费记录");
+							}
+				        	
 				        });
 				        
 				  	});
