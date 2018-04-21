@@ -112,6 +112,10 @@
 		menu1.setAttribute("tabindex","0");
 	}
 	
+	function getBad() {
+		
+	}
+	
 	
 </script>
 
@@ -134,7 +138,7 @@
 				<ul class="tabs" data-tab="">
 				  <li id="li1" class="tab-title active"><a href="<%=basePath%>stuLogin/firstPage" aria-selected="true" tabindex="0" onclick="getFirst()">学生主页</a></li>
 				  <li id="li2" class="tab-title"><a href="javascript:void(0)" aria-selected="false" tabindex="-1" onclick="getCost()">消费情况</a></li>
-				  <li id="li3" class="tab-title"><a href="#menu2" aria-selected="false" tabindex="-1">成绩预警</a></li>
+				  <li id="li3" class="tab-title"><a href="javascript:void(0)" aria-selected="false" tabindex="-1" id="bad">成绩预警</a></li>
 				  <li id="li4" class="tab-title"><a href="#menu3" aria-selected="false" tabindex="-1">推荐系统</a></li>
 				</ul>
 			</div>
@@ -243,60 +247,60 @@
 				  	<div id="costDetail" style="width:800px;height: 400px;">
 				  	</div>
 				  	<script>
-				  	$('#getTime').click(function(){
-					  	var start = document.getElementById("start").value;
-						var end = document.getElementById("end").value;
-						if (parseInt(end.replace("-","").replace("-","")) < parseInt(start.replace("-","").replace("-","")) ) {
-							alert("时间段不合法");
-							return false;
-						}
-					  	var cost = echarts.init(document.getElementById('costDetail'));	
-					  	//var data = ${cost};
-					  	var key=[];    
-				        var value=[];
-				        //for (var item in data) {
-				        //    key.push(data[item].key);
-				        //    val.push(data[item].value);
-				        //}
-				        cost.setOption({        //加载数据图表
-	                    	xAxis: {
-				  		        type: 'category',
-				  		        data: key
-				  		    },
-				  		    yAxis: {
-				  		        type: 'value'
-				  		    },
-				  		    series: [{
-				  		        data: value,
-				  		        type: 'line'
-				  		    }]
-	                    });
-				        $.post('<%=basePath%>stuLogin/cost', {'start': start, 'end' : end}).done(function (data) {
-				        	//alert(data);
-				        	var dataLength = 0;
-				        	for(var i in data){
-				        		dataLength++;
-				        	}
-				        	if (dataLength > 0) {
-				        		for (var item in data) {
-				                    key.push(item);
-				                    value.push(data[item]);
-				                }
-					        	cost.setOption({
-					        		xAxis: {
-						  		        data: key
-						  		    },
-						  		  	series: [{
-						  		        data: value
-						  		    }]
-					        	});
-							} else {
-								alert("该时间段内没有消费记录");
+					  	$('#getTime').click(function(){
+						  	var start = document.getElementById("start").value;
+							var end = document.getElementById("end").value;
+							if (parseInt(end.replace("-","").replace("-","")) < parseInt(start.replace("-","").replace("-","")) ) {
+								alert("时间段不合法");
+								return false;
 							}
-				        	
-				        });
-				        
-				  	});
+						  	var cost = echarts.init(document.getElementById('costDetail'));	
+						  	//var data = ${cost};
+						  	var key = [];    
+					        var value = [];
+					        //for (var item in data) {
+					        //    key.push(data[item].key);
+					        //    val.push(data[item].value);
+					        //}
+					        cost.setOption({        //加载数据图表
+		                    	xAxis: {
+					  		        type: 'category',
+					  		        data: key
+					  		    },
+					  		    yAxis: {
+					  		        type: 'value'
+					  		    },
+					  		    series: [{
+					  		        data: value,
+					  		        type: 'line'
+					  		    }]
+		                    });
+					        $.post('<%=basePath%>stuLogin/cost', {'start': start, 'end' : end}).done(function (data) {
+					        	//alert(data);
+					        	var dataLength = 0;
+					        	for (var i in data) {
+					        		dataLength++;
+					        	}
+					        	if (dataLength > 0) {
+					        		for (var item in data) {
+					                    key.push(item);
+					                    value.push(data[item]);
+					                }
+						        	cost.setOption({
+						        		xAxis: {
+							  		        data: key
+							  		    },
+							  		  	series: [{
+							  		        data: value
+							  		    }]
+						        	});
+								} else {
+									alert("该时间段内没有消费记录");
+								}
+					        	
+					        });
+					        
+					  	});
 				  	</script>
 				    <script>
 					 	laydate.render({
@@ -310,8 +314,55 @@
 					</script>
 				  </div>
 				  <div class="content" id="menu3" aria-hidden="true" tabindex="-1">
-				    <h3>菜单 2</h3>
-				    <p>一些文本内容 2</p>
+				    <h3>问题课程</h3>
+				    <marquee id="flow" scrolldelay=0 onmouseout=this.start() onMouseOver=this.stop() scrollamount=2 direction="left" ></marquee>
+				  	<script>
+					  	$('#bad').click(function(){
+					  		var li1 = document.getElementById("li1");
+							var li2 = document.getElementById("li2");
+							var li3 = document.getElementById("li3");
+							var li4 = document.getElementById("li4");
+							var menu1 = document.getElementById("menu1");
+							var menu2 = document.getElementById("menu2");
+							var menu3 = document.getElementById("menu3");
+							var menu4 = document.getElementById("menu4");
+							
+							li2.setAttribute("class","tab-title");
+							li2.getElementsByTagName("a")[0].setAttribute("aria-selected","false");
+							li2.getElementsByTagName("a")[0].setAttribute("tabindex","-1");
+							menu2.setAttribute("aria-hidden","true");
+							menu2.setAttribute("class","content");
+							menu2.setAttribute("tabindex","-1");
+							li1.setAttribute("class","tab-title");
+							li1.getElementsByTagName("a")[0].setAttribute("aria-selected","false");
+							li1.getElementsByTagName("a")[0].setAttribute("tabindex","-1");
+							menu1.setAttribute("aria-hidden","true");
+							menu1.setAttribute("class","content");
+							menu1.setAttribute("tabindex","-1");
+							li4.setAttribute("class","tab-title");
+							li4.getElementsByTagName("a")[0].setAttribute("aria-selected","false");
+							li4.getElementsByTagName("a")[0].setAttribute("tabindex","-1");
+							menu4.setAttribute("aria-hidden","true");
+							menu4.setAttribute("class","content");
+							menu4.setAttribute("tabindex","-1");
+							
+							li3.setAttribute("class","tab-title active");
+							li3.getElementsByTagName("a")[0].setAttribute("aria-selected","true");
+							li3.getElementsByTagName("a")[0].setAttribute("tabindex","0");
+							menu3.setAttribute("aria-hidden","false");
+							menu3.setAttribute("class","content active");
+							menu3.setAttribute("tabindex","0");
+							
+							$.post('<%=basePath%>stuLogin/bad').done(function (data) {
+								if (data.length > 0) {
+									document.getElementById("flow").innerHTML = "需注意科目:"+data;
+								} else {
+									document.getElementById("flow").innerHTML = "成绩状况良好，请继续保持！"
+								}
+								
+							});
+					  	});
+				  	</script>
 				  </div>
 				  <div class="content" id="menu4" aria-hidden="true" tabindex="-1">
 				    <h3>菜单 3</h3>
@@ -323,68 +374,7 @@
 				    $(document).foundation();
 				})
 				</script>
-			<div class="col-9">
-				<!-- 
-				<div class="row">
-					<div id="carouselExampleControls" class="carousel slide"
-						data-ride="carousel"  style="height:50%;width:100%">
-						<div class="carousel-inner" style="height:100%;width:100%">
-							<div class="carousel-item active">
-								<img class="d-block w-100" src="<c:url value="/resources/img/Sale.jpg"/>" alt="First slide">
-							</div>
-							<div class="carousel-item">
-								<img class="d-block w-100" src="<c:url value="/resources/img/zhengqingchun.jpg"/>" alt="Third slide">
-							</div>
-						</div>
-						<a class="carousel-control-prev" href="#carouselExampleControls"
-							role="button" data-slide="prev"> <span
-							class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-							class="sr-only">Previous</span> </a> <a class="carousel-control-next"
-							href="#carouselExampleControls" role="button" data-slide="next">
-							<span class="carousel-control-next-icon" aria-hidden="true"></span>
-							<span class="sr-only">Next</span> </a>
-					</div>
-				</div>
-				
-				<div class="row">
-					<table class="table">
-						<tbody>
-							<tr>
-								<th scope="row" bgcolor="#000000"><font color="white">本年度热书</font></th>
-							</tr>
-							<tr>
-								<td>Jacob</td>
-								<td>Thornton</td>
-								<td>@fat</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-
-				<div class="row">
-					<table class="table">
-						<tbody>
-							<tr>
-								<th scope="row" class="rounded" bgcolor="#000000" ><font color="white">统计界面展示</font></th>
-							</tr>
-							<tr>
-								<td>Jacob</td>
-								<td>Thornton</td>
-								<td>@fat</td>
-							</tr>
-						</tbody>
-					</table>
-					<div id="showborrowtimes" style="width:800px;height: 400px;">
-
-					</div>
-
-				</div>
-				-->		
-				
-
-				<!--初始化 Foundation JS -->
-							
-			</div>
+			
 		</div>
 	</div>
 
@@ -402,95 +392,5 @@
 
 	
 	
-	<!-- 
-	<script class="showborrowtimes">
-
-		var data = ${webrecomstatistics.data};
-		var keyarr = [];
-		var valarr = [];
-		for (var item in data) {
-			keyarr.push(item);
-			valarr.push(data[item]);
-
-		}
-
-		var myChart = echarts.init(document.getElementById('showborrowtimes'));
-		var option = {
-			title: {
-				text: '借阅Top15',
-				subtext: '图书馆借阅次数top15的书籍'
-			},
-			color: ['#008080'],
-			tooltip: {
-				trigger: 'axis',
-				axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-					type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-				}
-			},
-			grid: {
-				left: '3%',
-				right: '4%',
-				bottom: '3%',
-				containLabel: true
-			},
-			xAxis: [
-				{
-					type: 'value'
-				}
-
-
-			],
-			yAxis: [
-				{
-					type: 'category',
-					data: keyarr,
-					axisTick: {
-						alignWithLabel: true
-					}
-				}
-			],
-			series: [
-				{
-					name: '直接访问',
-					type: 'bar',
-					barWidth: '60%',
-					data: valarr
-				}
-			]
-		};
-
-		myChart.setOption(option);
-	</script>
-	 -->
-	 <!-- 
-	 <div>
-	 	<input type="text" id="test2">
-	 	<input type="text" id="test3">
-	 	<input type="text" id="test4">
-	 	<input type="text" id="test5">
-	 </div>
-	 <script>
-	//年选择器
-	 laydate.render({
-	   elem: '#test2'
-	   ,type: 'year'
-	 });
-	 //年月选择器
-	 laydate.render({
-	   elem: '#test3'
-	   ,type: 'month'
-	 });
-	 //时间选择器
-	 laydate.render({
-	   elem: '#test4'
-	   ,type: 'time'
-	 });
-	 //时间选择器
-	 laydate.render({
-	   elem: '#test5'
-	   ,type: 'datetime'
-	 });
-	 </script>
-	  -->
 </body>
 </html>

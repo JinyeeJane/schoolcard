@@ -20,4 +20,6 @@
   	select * from WEBGRADE where XS_ID = #{0}
   </select>
   
+  
+  
 </mapper>
