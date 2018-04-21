@@ -6,4 +6,10 @@
     <result column="SJJYE" property="sjjye" jdbcType="DECIMAL" />
     <result column="JYSJ" property="jysj" jdbcType="VARCHAR" />
   </resultMap>
+  <select id="getYktlsByStartAndEnd" resultMap="BaseResultMap" >
+  	<![CDATA[SELECT * FROM WEBYKTLS WHRER XGH = #{xh,jdbcType=VARCHAR} AND TO_NUMBER(SUBSTR(JYSJ,0,8)) < #{end,jdbcType=INTEGER} AND TO_NUMBER(SUBSTR(JYSJ,0,8)) > #{start,jdbcType=INTEGER} ]]>  
+  </select>
+  <select id="selectByXH" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	SELECT * FROM WEBYKTLS WHERE XGH = #{0}
+  </select>
 </mapper>

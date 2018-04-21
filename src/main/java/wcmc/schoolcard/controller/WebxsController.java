@@ -1,5 +1,9 @@
 package wcmc.schoolcard.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeMap;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -8,13 +12,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import wcmc.schoolcard.dto.WebReaderinfo;
+import wcmc.schoolcard.dto.Webgrade;
 import wcmc.schoolcard.dto.Webrecomstatistics;
 import wcmc.schoolcard.dto.Webxs;
+import wcmc.schoolcard.dto.Webyktls;
 import wcmc.schoolcard.service.WebReaderinfoService;
 import wcmc.schoolcard.service.WebRecomStatisticsService;
+import wcmc.schoolcard.service.WebgradeService;
 import wcmc.schoolcard.service.WebxsService;
+import wcmc.schoolcard.service.WebyktlsService;
 
 
 @Controller
@@ -23,6 +35,11 @@ public class WebxsController {
 	
 	@Autowired
 	private WebxsService webxsService;
+	@Autowired
+	private WebyktlsService webyktlsService; 
+	@Autowired
+	private WebgradeService webgradeService;
+	
 //	@Autowired
 //	private WebReaderinfoService webReaderinfoService;
 //	@Autowired
@@ -70,29 +87,31 @@ public class WebxsController {
 		return "redirect:http://localhost:8080/schoolcard/";
 	}
 	
-	@RequestMapping("/cost")
-	public void cost(HttpServletRequest request){
+	@RequestMapping(value="/cost", produces="application/json;charset=UTF-8;")
+	public @ResponseBody String cost(HttpServletRequest request, Model model){
 		Webxs xs = (Webxs) request.getSession().getAttribute("xs");
-		int start = Integer.parseInt(request.getParameter("start").replaceAll("-", ""));
-		int end = Integer.parseInt(request.getParameter("end").replaceAll("-", ""));
+		String start = request.getParameter("start");
+		String end = request.getParameter("end");
+//		System.out.println(start+"-"+ end);
+		TreeMap<String, Double> map = webyktlsService.getYktlsByStartAndEnd(xs.getXh(), start, end);
+		Gson gson = new Gson();
+        String cost= gson.toJson(map);
+		return cost;
 		
-		
-		
-//		System.out.println(xs.getXh()+":"+start+":"+end);
-		
-//		return "student/FirstPage";
 	}
 	
-//	@RequestMapping("/test")
-//	public String test(HttpServletRequest request){
-//		return "student/FirstPage";
-//	}
-	
-//	@RequestMapping("/bookRec")
-//	public String bookRec(HttpServletRequest request)
-//	{
-//		System.out.println("bookRec");
-//		return "BookRec";
-//	}
+	@RequestMapping(value="/bad", produces="application/json;charset=UTF-8;")
+	@ResponseBody
+	public String bad(HttpServletRequest request, Model model){
+		Webxs webxs = (Webxs) request.getSession().getAttribute("xs");
+		List<Webgrade> list = webgradeService.getBadGradeById(webxs.getXsId());
+		List<String> slist = new ArrayList<String>();
+		for (Webgrade webgrade : list) {
+			slist.add(webgrade.getKcmc());
+		}
+		Gson gson = new Gson();
+        String bad= gson.toJson(slist);
+		return bad;
+	}
 	
 }
