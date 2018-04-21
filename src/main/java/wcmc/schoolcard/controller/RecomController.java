@@ -184,6 +184,7 @@ public class RecomController {
         WebReaderinfo webReaderinfo= webReaderinfoService.selectByXh(xs.getXh());
         String readerid = webReaderinfo.getReaderid();
         WebRecomtop15 webRecomtop15 = webRecomTop15Service.selectByPrimaryKey(readerid);
+        System.out.println(webRecomtop15.getBookid1());
         List<Webbookinfo> listOfRecBooks = new ArrayList<>();
         Class rectop15Class =  webRecomtop15.getClass();
         Webbookinfo webbookinfo;

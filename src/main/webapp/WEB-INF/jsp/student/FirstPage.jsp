@@ -136,10 +136,10 @@
 				<a class="nav-item nav-link" href="#">贫困生预测</a>
 			-->
 				<ul class="tabs" data-tab="">
-				  <li id="li1" class="tab-title active"><a href="<%=basePath%>stuLogin/firstPage" aria-selected="true" tabindex="0" onclick="getFirst()">学生主页</a></li>
+				  <li id="li1" class="tab-title active"><a href="javascript:void(0)" aria-selected="true" tabindex="0" onclick="getFirst()">学生主页</a></li>
 				  <li id="li2" class="tab-title"><a href="javascript:void(0)" aria-selected="false" tabindex="-1" onclick="getCost()">消费情况</a></li>
 				  <li id="li3" class="tab-title"><a href="javascript:void(0)" aria-selected="false" tabindex="-1" id="bad">成绩预警</a></li>
-				  <li id="li4" class="tab-title"><a href="#menu3" aria-selected="false" tabindex="-1">推荐系统</a></li>
+				  <li id="li4" class="tab-title"><a href="<%=basePath%>bookrecom/newbookrecom" aria-selected="false" tabindex="-1" id="recommend">推荐系统</a></li>
 				</ul>
 			</div>
 			
@@ -365,9 +365,12 @@
 				  	</script>
 				  </div>
 				  <div class="content" id="menu4" aria-hidden="true" tabindex="-1">
-				    <h3>菜单 3</h3>
-				    <p>一些文本内容 3</p>
 				  </div>
+				  <script>
+				  	$('#recommend').click(function(){
+				  		window.location.href = "<%=basePath %>bookrecom/newbookrecom";
+				  	});
+				  </script>
 				</div>
 				<script>
 				$(document).ready(function() {
