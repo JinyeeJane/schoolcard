@@ -153,6 +153,7 @@ public class RecomController {
         return hotbookGson;
     }
 
+
     @RequestMapping(value = "/history", produces="application/json;charset=UTF-8;")
     public  @ResponseBody String BrorrowHistory(HttpServletRequest request){
 
@@ -173,7 +174,27 @@ public class RecomController {
         String listOfBroBookInfoGson= Gson.toJson(listOfBroBookInfo);
         System.out.println(listOfBroBookInfo.size());
         return listOfBroBookInfoGson;
+    }
+    @RequestMapping(value = "/addordelcollection", produces="application/json;charset=UTF-8;")
+    public  @ResponseBody String collection(HttpServletRequest request){
 
+        HttpSession session = request.getSession();
+        Webxs xs = (Webxs)session.getAttribute("xs");
+        WebReaderinfo webReaderinfo= webReaderinfoService.selectByXh(xs.getXh());
+        String readerid = webReaderinfo.getReaderid();
+        //借阅历史
+        List<Webborrow> listOfBrorrow;
+        List<Webbookinfo> listOfBroBookInfo = new ArrayList<>();
+        listOfBrorrow = webBorrowService.selectByReaderId(readerid);
+        Webbookinfo webbookinfo;
+        for(int i=0;i<listOfBrorrow.size();i++) {
+            webbookinfo = webBookInfoService.selectByPrimaryKey(listOfBrorrow.get(i).getBookid());
+            listOfBroBookInfo.add(webbookinfo);
+        }
+        Gson Gson = new Gson();
+        String listOfBroBookInfoGson= Gson.toJson(listOfBroBookInfo);
+        System.out.println(listOfBroBookInfo.size());
+        return listOfBroBookInfoGson;
     }
 
     @RequestMapping("/newbookrecom")
@@ -204,8 +225,6 @@ public class RecomController {
         Gson gson = new Gson();
         String listOfRecBooksGson= gson.toJson(listOfRecBooks);
         model.addAttribute("listOfRecBooks", listOfRecBooksGson);
-
-
         return "bookrecom/newBookRecom";
     }
 }

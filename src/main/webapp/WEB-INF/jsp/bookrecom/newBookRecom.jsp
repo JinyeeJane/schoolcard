@@ -116,7 +116,6 @@
         <div class="layui-tab-item">内容5</div>
     </div>
 </div>
-
 </div>
 <script src="<c:url value="/resources/js/layui/layui.js"/>" charset="utf-8"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/echarts.js"/>"></script>
@@ -126,7 +125,6 @@
     layui.use('element', function(){
         var $ = layui.jquery
                 ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
-
         //触发事件
         var active = {
             tabChange: function(){
@@ -134,7 +132,6 @@
                 element.tabChange('demo', '22'); //切换到：用户管理
             }
         };
-
     });
 </script>
 
@@ -180,7 +177,6 @@
                 ,{field:'ys', width:80,title: 'ys'}
                 ,{field:'jj', width:200, title: 'jj', minWidth: 150}
                 ,{fixed: 'right', width:50, align:'center', toolbar: '#barDemo'}
-
             ]]
             ,data:${listOfRecBooks}
             ,page: true
@@ -193,7 +189,6 @@
         });
     });
 </script>
-
 
 <script type="text/javascript" src="<c:url value="/resources/js/faculty.js"/>"></script>
 <script>
@@ -268,7 +263,6 @@
         }
     });
 
-
     $(".hotbookbutton").click(function() {
 
         $.post('<%=basePath%>bookrecom/hotbook',{ 'begintime' : $(".begintime").val(),
@@ -326,7 +320,6 @@
                             , {field: 'ys', width: 80, title: 'ys'}
                             , {field: 'jj', width: 200, title: 'jj', minWidth: 150}
                             , {fixed: 'right', width: 50, align: 'center', toolbar: '#barDemo'}
-
                         ]]
                         , data: data
                         , page: true
@@ -340,7 +333,6 @@
                 });
             })
         }
-
     });
 
 </script>
