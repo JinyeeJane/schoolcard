@@ -6,13 +6,10 @@ import wcmc.schoolcard.dto.WebcollectionKey;
 
 import java.util.List;
 
-/**
- * Created by Channings on 18/4/21.
- */
 
 public interface WebCollectionService {
     int deleteByPrimaryKey(WebcollectionKey key);
     List<Webcollection> selectByReaderId(String readerid);
-
-
+    int insert(Webcollection webcollection);
+    List<String> selectBookidByReaderId(String readerid);
 }

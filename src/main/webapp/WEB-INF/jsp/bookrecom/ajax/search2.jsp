@@ -33,13 +33,28 @@
 <h2>查询结果</h2>
 <table  id="test" lay-filter="demo"></table>
 
-<script type="text/html" id="barDemo" >
-    <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="detail">收藏</a>
+<script type="text/html" id="checkboxrecom" >
+    <input type="checkbox" name="colleciton" value="{{d.bookid}}" title="收藏" lay-filter="checkboxrecom" {{ jQuery.inArray(d.bookid, collectionbooklist) ==-1 ? '' : 'checked' }}>
 </script>
 <script src="<c:url value="/resources/js/layui/layui.js"/>" charset="utf-8"></script>
 <script>
+
+    var collectionListGson = ${collectionListGson};
+    collectionbooklist = [];
+    console.log()
+    for(j = 0,len=collectionListGson.length; j < len; j++) {
+        var option = document.createElement('option');
+        collectionbooklist.push(collectionListGson[j].bookid);
+    }
+
+    function collection(bookid,addordel) {
+        $.post('<%=basePath%>bookrecom/collection',{"bookid":bookid,"addordel":addordel}).done(function (data) {
+        });
+    }
+
     layui.use('table', function(){
-        var table = layui.table;
+        var table = layui.table,
+                form = layui.form;
         table.render({
             elem: '#test'
             ,page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
@@ -50,26 +65,25 @@
                 ,last: false //不显示尾页
             }
             ,cols: [[
-                {field:'bookid', width:80, title: 'bookid'}
-                ,{field:'title', width:200, title: 'title'}
-                ,{field:'author', width:100, title: 'author'}
-                ,{field:'cbs', width:150, title: 'cbs'}
-                ,{field:'cbrq', width:120, title: 'cbrq', sort: true}
-                ,{field:'ztc', width:120, title: 'ztc'}
-                ,{field:'jg', width:120, title: 'jg', sort: true}
-                ,{field:'ys', width:80,title: 'ys'}
-                ,{field:'jj', width:200, title: 'jj', minWidth: 150}
-                ,{fixed: 'right', width:50, align:'center', toolbar: '#barDemo'}
+                {field:'bookid', width:80, title: 'ID'}
+                ,{field:'title', width:200, title: '书名'}
+                ,{field:'author', width:100, title: '作者'}
+                ,{field:'cbs', width:150, title: '出版社'}
+                ,{field:'cbrq', width:120, title: '出版日期', sort: true}
+                ,{field:'ztc', width:120, title: '主题词'}
+                ,{field:'jj', width:200, title: '简介', minWidth: 150}
+                ,{field:'lock', title:'收藏', width:110, templet: '#checkboxrecom', unresize: true}
 
             ]]
             ,data:${result4queryGson}
             ,page: true
         });
-        table.on('tool(demo)', function(obj){
-            var data = obj.data;
-            if(obj.event === 'detail'){
-                layer.msg('ID：'+ data.bookid + ' 已加入收藏');
-            }
+        form.on('checkbox(checkboxrecom)', function(obj){
+            var flag = obj.elem.checked == true ? "加入收藏" :"取消收藏";
+            layer.tips(this.value +' '+ flag ,obj.othis);
+            collection(this.value, obj.elem.checked);
+            console.log(this.value);
+
         });
     });
 </script>

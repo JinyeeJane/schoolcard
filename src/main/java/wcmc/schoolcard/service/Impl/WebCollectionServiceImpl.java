@@ -9,9 +9,7 @@ import wcmc.schoolcard.service.WebCollectionService;
 
 import java.util.List;
 
-/**
- * Created by Channings on 18/4/21.
- */
+
 @Service
 public class WebCollectionServiceImpl implements WebCollectionService{
     @Autowired
@@ -25,5 +23,11 @@ public class WebCollectionServiceImpl implements WebCollectionService{
         return webcollectionMapper.deleteByPrimaryKey(key);
     };
 
+    @Override
+    public int insert(Webcollection webcollection){return webcollectionMapper.insert(webcollection);};
 
+    @Override
+    public List<String> selectBookidByReaderId(String readerid){
+        return webcollectionMapper.selectBookidByReaderId(readerid);
+    };
 }

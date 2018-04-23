@@ -11,4 +11,8 @@ public interface WebcollectionMapper {
     Webcollection selectByPrimaryKey(WebcollectionKey key);
 
     List<Webcollection> selectByReaderId(String readerid);
+
+    int insert(Webcollection conllection);
+
+    List<String> selectBookidByReaderId(String readerid);
 }
