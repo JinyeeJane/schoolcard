@@ -20,6 +20,8 @@
   	select * from WEBGRADE where XS_ID = #{0}
   </select>
   
-  
+  <select id="getGradeByXy" resultType="java.util.HashMap" parameterType="java.lang.String">
+  	SELECT KCMC,AVGFS FROM (SELECT KCMC,AVG(FSLKXCJ) AS AVGFS FROM WEBGRADE WHERE XS_ID IN (SELECT XS_ID FROM WEBXS WHERE YXSHMC = #{0}) AND REGEXP_LIKE(FSLKXCJ,'^[0-9]+\.?[0-9]+$') GROUP BY KCMC ORDER BY COUNT(KCMC) DESC) WHERE ROWNUM &lt;= 50 
+  </select>
   
 </mapper>
