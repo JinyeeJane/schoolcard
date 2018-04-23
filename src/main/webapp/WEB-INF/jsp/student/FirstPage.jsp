@@ -112,9 +112,6 @@
 		menu1.setAttribute("tabindex","0");
 	}
 	
-	function getBad() {
-		
-	}
 	
 	
 </script>
@@ -129,12 +126,6 @@
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			
 			<div class="navbar-nav col-sm-10 row">
-			<!-- 
-				<a class="nav-item nav-link active ml-3"
-					href="<%=basePath%>stuLogin/firstPage">首页 <span class="sr-only">(current)</span>
-				</a> <a class="nav-item nav-link" href="<%=basePath%>stuLogin/bookRec">推荐系統</a>
-				<a class="nav-item nav-link" href="#">贫困生预测</a>
-			-->
 				<ul class="tabs" data-tab="">
 				  <li id="li1" class="tab-title active"><a href="javascript:void(0)" aria-selected="true" tabindex="0" onclick="getFirst()">学生主页</a></li>
 				  <li id="li2" class="tab-title"><a href="javascript:void(0)" aria-selected="false" tabindex="-1" onclick="getCost()">消费情况</a></li>
@@ -359,7 +350,6 @@
 								} else {
 									document.getElementById("flow").innerHTML = "成绩状况良好，请继续保持！"
 								}
-								
 							});
 					  	});
 				  	</script>

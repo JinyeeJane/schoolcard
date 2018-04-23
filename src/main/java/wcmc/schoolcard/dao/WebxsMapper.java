@@ -19,4 +19,6 @@ public interface WebxsMapper {
     
     List<Webxs> selectAllUser();
     
+    List<Webxs> selectXsByYxshmc(String yxshmc);
+    
 }
