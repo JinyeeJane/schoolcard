@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wcmc.schoolcard.dao.WebcollectionMapper" >
+  <resultMap id="BaseResultMap" type="wcmc.schoolcard.dto.Webcollection" >
+    <id column="READERID" property="readerid" jdbcType="VARCHAR" />
+    <id column="BOOKID" property="bookid" jdbcType="VARCHAR" />
+    <result column="TIME" property="time" jdbcType="VARCHAR" />
+
+  </resultMap>
+
+  <resultMap id="Bookid" type="string" >
+    <id column="bookid"  jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    READERID, BOOKID, TIME
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="wcmc.schoolcard.dto.WebcollectionKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from WEBCOLLECTION
+    where READERID = #{readerid,jdbcType=VARCHAR}
+      and BOOKID = #{bookid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="wcmc.schoolcard.dto.WebcollectionKey" >
+    delete from WEBCOLLECTION
+    where READERID = #{readerid,jdbcType=VARCHAR}
+      and BOOKID = #{bookid,jdbcType=VARCHAR}
+  </delete>
+  <select id="selectByReaderId" resultMap="BaseResultMap" parameterType="wcmc.schoolcard.dto.WebcollectionKey" >
+    select
+    <include refid="Base_Column_List" />
+    from WEBCOLLECTION
+    where READERID = #{readerid,jdbcType=VARCHAR}
+  </select>
+  <insert id="insert" parameterType="wcmc.schoolcard.dto.Webcollection" >
+    insert into WEBCOLLECTION (READERID, BOOKID, TIME)
+    values (#{readerid,jdbcType=VARCHAR}, #{bookid,jdbcType=VARCHAR},
+      #{time,jdbcType=VARCHAR})
+  </insert>
+
+  <select id="selectBookidByReaderId" resultMap="Bookid" parameterType="wcmc.schoolcard.dto.WebcollectionKey" >
+    select
+    BOOKID
+    from WEBCOLLECTION
+    where READERID = #{readerid,jdbcType=VARCHAR}
+  </select>
+</mapper>

@@ -18,7 +18,8 @@
   <select id="selectByBookIds" resultMap="BaseResultMap" parameterType="List">
     select
     <include refid="Base_Column_List" />
-    from WEBBOOKINFO WHERE BOOKID IN #{bookids}
+    from WEBBOOKINFO WHERE BOOKID IN
+    <foreach collection="bookids" index="index" item="bookid" open="(" close=")" separator=","> #{bookid} </foreach>
 
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
