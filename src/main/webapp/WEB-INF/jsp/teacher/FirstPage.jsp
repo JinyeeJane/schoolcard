@@ -148,7 +148,7 @@
 					  		        type: 'line'
 					  		    }]
 		                    });
-					        $.post('<%=basePath%>stuLogin/cost', {'start': start, 'end' : end}).done(function (data) {
+					        $.post('<%=basePath%>teacherLogin/cost', {'start': start, 'end' : end}).done(function (data) {
 					        	//alert(data);
 					        	var dataLength = 0;
 					        	for (var i in data) {

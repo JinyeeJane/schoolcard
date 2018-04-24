@@ -12,4 +12,13 @@
   <select id="selectByXH" resultMap="BaseResultMap" parameterType="java.lang.String">
   	SELECT * FROM WEBYKTLS WHERE XGH = #{0}
   </select>
+  <select id="selectByXy" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	SELECT * FROM WEBYKTLS WHERE XGH IN (SELECT XH FROM WEBXS WHERE YXSHMC = #{0})
+  </select>
+  <select id="selectByMonth" resultType="java.util.HashMap" parameterType="java.lang.String">
+  	SELECT SUBSTR(JYSJ,0,6) AS TIME, SUM(SJJYE) AS TOTAL FROM WEBYKTLS WHERE XGH IN (SELECT XH FROM WEBXS WHERE YXSHMC = #{0}) GROUP BY SUBSTR(JYSJ,0,6)
+  </select>
+  <select id="selectByDay" resultType="java.util.HashMap" parameterType="java.lang.String">
+  	SELECT SUBSTR(JYSJ,0,8) AS TIME, SUM(SJJYE) AS TOTAL FROM WEBYKTLS WHERE XGH IN (SELECT XH FROM WEBXS WHERE YXSHMC = #{0}) GROUP BY SUBSTR(JYSJ,0,8)
+  </select>
 </mapper>
