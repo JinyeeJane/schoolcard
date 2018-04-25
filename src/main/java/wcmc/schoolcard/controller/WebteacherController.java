@@ -1,5 +1,7 @@
 package wcmc.schoolcard.controller;
 
+
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -17,6 +19,7 @@ import com.google.gson.Gson;
 import wcmc.schoolcard.dto.Webteacher;
 import wcmc.schoolcard.dto.Webxs;
 import wcmc.schoolcard.service.WebteacherService;
+import wcmc.schoolcard.service.WebxsService;
 import wcmc.schoolcard.service.WebyktlsService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +33,8 @@ public class WebteacherController {
 	private WebteacherService webteacherService;
 	@Autowired
 	private WebyktlsService webyktlsService;
+	@Autowired
+	private WebxsService webxsService;
 	
 	@RequestMapping("/login")
 	public String login(HttpServletRequest request) {
@@ -43,9 +48,15 @@ public class WebteacherController {
 			Map<String, String> map = webteacherService.getGradeByTeacher(webteacher.getSCHOOL());
 			HttpSession session = request.getSession();
 			session.setAttribute("teacher", webteacher);
+			List<Webxs> abnormalList = webxsService.getAbnormalByXy(webteacher.getSCHOOL());
+			List<Webxs> poorList = webxsService.getPoorByXy(webteacher.getSCHOOL());
 			Gson gson = new Gson();
 			String grade = gson.toJson(map);
+			String abnormal = gson.toJson(abnormalList);
+			String poor = gson.toJson(poorList);
 			session.setAttribute("grade", grade);
+			session.setAttribute("abnormal", abnormal);
+			session.setAttribute("poor", poor);
 			return "teacher/FirstPage";
 		} else {
 			return "redirect:http://localhost:8080/schoolcard/teacherLogin.jsp";
@@ -74,6 +85,15 @@ public class WebteacherController {
 		Gson gson = new Gson();
         String cost= gson.toJson(map);
 		return cost;
+	}
+	
+	@RequestMapping("/goStuPage")
+	public String goStuPage(HttpServletRequest request, Model model) {
+		Webxs webxs = webxsService.selectByPrimaryKey(request.getParameter("xh"));
+		HttpSession session = request.getSession();
+		session.setAttribute("xs", webxs);
+		session.setAttribute("personalGraph", webxsService.getPersonalInfo(webxs.getXh()));
+		return "student/FirstPage";
 	}
 
 }

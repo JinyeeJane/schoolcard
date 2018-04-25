@@ -187,7 +187,66 @@
 					</script>
 				  </div>
 				  <div id="menu3">
-				    <h3>成绩状况</h3>
+				    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+					  <legend>异常学生</legend>
+					</fieldset>
+					 
+					<ul class="flow-default" id="LAY_demo1"></ul>
+					<!--<script src="//res.layui.com/layui/dist/layui.js" charset="utf-8"></script>-->
+					<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+					<script>
+					layui.use('flow', function(){
+					  var flow = layui.flow;
+					  flow.load({
+					    elem: '#LAY_demo1', //流加载容器
+					    scrollElem: '#LAY_demo1', //滚动条所在元素，一般不用填，此处只是演示需要。
+					    done: function(page, next){ //执行下一页的回调
+					      //模拟数据插入
+					      setTimeout(function(){
+					    	var abnormal = ${sessionScope.abnormal};
+					        var lis = [];
+					        for(var i = 0; i < 8; i++){
+					          lis.push('<li><a href = <%=basePath%>teacherLogin/goStuPage?xh='+abnormal[(page-1)*8 + i + 1].xh+'>'+ ( abnormal[(page-1)*8 + i + 1].xm ) +'</a></li>')
+					        }
+					        //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+					        //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+					        next(lis.join(''), page < 10); //假设总页数为 10
+					      }, 500);
+					    }
+					  });
+					});
+					</script>
+				  </div>
+				  <div id="menu4">
+				    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+					  <legend>贫困生</legend>
+					</fieldset>
+					 
+					<ul class="flow-default" id="LAY_demo2"></ul>
+					<!--<script src="//res.layui.com/layui/dist/layui.js" charset="utf-8"></script>-->
+					<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+					<script>
+					layui.use('flow', function(){
+					  var flow = layui.flow;
+					  flow.load({
+					    elem: '#LAY_demo2', //流加载容器
+					    scrollElem: '#LAY_demo2', //滚动条所在元素，一般不用填，此处只是演示需要。
+					    done: function(page, next){ //执行下一页的回调
+					      //模拟数据插入
+					      setTimeout(function(){
+					    	var poor = ${sessionScope.poor};
+					        var lis = [];
+					        for(var i = 0; i < 8; i++){
+					          lis.push('<li><a href = <%=basePath%>teacherLogin/goStuPage?xh='+poor[(page-1)*8 + i + 1].xh+'>'+ ( poor[(page-1)*8 + i + 1].xm ) +'</a></li>')
+					        }
+					        //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+					        //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+					        next(lis.join(''), page < 10); //假设总页数为 10
+					      }, 500);
+					    }
+					  });
+					});
+					</script>
 				  </div>
 				</div>
 				<script>

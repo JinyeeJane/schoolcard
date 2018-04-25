@@ -40,6 +40,20 @@
     where YXSHMC = #{yxshmc,jdbcType=VARCHAR}
   </select>
   
+  <select id="getAbnormalByXy" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from WEBXS
+    where YXSHMC = #{0} AND XS_ID IN (SELECT XS_ID FROM WEBERROR)
+  </select>
+  
+  <select id="getPoorByXy" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from WEBXS
+    where YXSHMC = #{0} AND XS_ID IN (SELECT XS_ID FROM WEBPOOR)
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from WEBXS
     where XH = #{xh,jdbcType=VARCHAR}
