@@ -137,5 +137,17 @@ public class WebxsServiceImpl implements WebxsService{
 		return result;
 	}
 
+	@Override
+	public List<Webxs> getAbnormalByXy(String xy) {
+		// TODO Auto-generated method stub
+		return webxsMapper.getAbnormalByXy(xy);
+	}
+
+	@Override
+	public List<Webxs> getPoorByXy(String xy) {
+		// TODO Auto-generated method stub
+		return webxsMapper.getPoorByXy(xy);
+	}
+
 
 }

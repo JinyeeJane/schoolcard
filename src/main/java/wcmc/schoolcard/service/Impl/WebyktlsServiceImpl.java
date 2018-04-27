@@ -1,5 +1,6 @@
 package wcmc.schoolcard.service.Impl;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -54,6 +55,39 @@ public class WebyktlsServiceImpl implements WebyktlsService{
 			}
 		}
 		return (TreeMap<String, Double>) map;
+	}
+
+	@Override
+	public TreeMap<String, Double> getYktlsByXy(String xy, String start,
+			String end) {
+		Map<String, Double> result = new TreeMap<String, Double>();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		long days = 0;
+		try {
+			days = (sf.parse(end).getTime()-sf.parse(start).getTime())/(1000*60*60*24);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		if (days > 31) {
+			list = webyktlsMapper.selectByMonth(xy);
+		} else {
+			list = webyktlsMapper.selectByDay(xy);
+		}
+		for (Map<String, Object> map : list){
+			String key = null;
+			Double value = null;
+			for (Map.Entry<String,Object>  entry : map.entrySet()){
+				if ("TIME".equals(entry.getKey())) {
+	                key =  entry.getValue().toString();
+	            }else if ("TOTAL".equals(entry.getKey())) {
+	                value = (((BigDecimal) entry.getValue()).setScale(2,BigDecimal.ROUND_HALF_UP)).doubleValue();
+	            }
+			}
+			result.put(key, value);
+		}
+		return (TreeMap<String, Double>) result;
 	}
 
 }

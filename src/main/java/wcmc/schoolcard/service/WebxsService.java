@@ -23,5 +23,9 @@ public interface WebxsService {
 	List<Webxs> selectAllUser();
 	
 	List<String> getPersonalInfo(String id); 
+	
+	List<Webxs> getAbnormalByXy(String xy);
+	
+	List<Webxs> getPoorByXy(String xy);
   
 }
