@@ -11,6 +11,7 @@
 <html>
 <head>
     <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="<c:url value="/resources/js/tagcloud/css/zzsc.css"/>"  media="all">
 </head>
 <body>
@@ -27,11 +28,11 @@
     var fragment = document.createDocumentFragment();
     var color = [1,2,5]
     var indexs = []
-    for(j = 0; j < 20; j++) {
+    for(j = 0; j < 50; j++) {
         var a = document.createElement('a');
-        var index = Math.floor(Math.random()*1000)
+        var index = Math.floor(Math.random()*1000);
         a.innerText = tags[index];
-        indexs.push(index)
+        indexs.push(index);
         a.setAttribute('id',index);
         a.setAttribute('class','tagc'+color[Math.floor(Math.random()*3)]);
         fragment.appendChild(a);
@@ -39,7 +40,7 @@
 
     $('#tagscloud').append(fragment);
 
-    for(j = 0; j < 20; j++) {
+    for(j = 0; j < 50; j++) {
         $("#" + indexs[j]).click(function () {
             console.log(tags[Number($(this).attr('id'))]);
 

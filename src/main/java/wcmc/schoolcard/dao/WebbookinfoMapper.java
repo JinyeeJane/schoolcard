@@ -14,4 +14,6 @@ public interface WebbookinfoMapper {
 
     List<Webbookinfo> selectByBookOrAuthorName(String query);
 
+    List<Webbookinfo> selectByZtc(@Param("ztcs")List<String> ztcs);
+
 }

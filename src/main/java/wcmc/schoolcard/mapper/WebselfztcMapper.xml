@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wcmc.schoolcard.dao.WebselfztcMapper">
+  <resultMap id="BaseResultMap" type="wcmc.schoolcard.dto.Webselfztc">
+    <id column="READERID" jdbcType="VARCHAR" property="readerid" />
+    <id column="ZTCID" jdbcType="CHAR" property="ztcid" />
+    <result column="ZTC" jdbcType="VARCHAR" property="ztc" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    READERID, ZTCID, ZTC
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="wcmc.schoolcard.dto.WebselfztcKey" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from WEBSELFZTC
+    where READERID = #{readerid,jdbcType=VARCHAR}
+      and ZTCID = #{ztcid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="wcmc.schoolcard.dto.WebselfztcKey">
+    delete from WEBSELFZTC
+    where READERID = #{readerid,jdbcType=VARCHAR}
+      and ZTCID = #{ztcid,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="wcmc.schoolcard.dto.WebselfztcExample">
+    delete from WEBSELFZTC
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="wcmc.schoolcard.dto.Webselfztc">
+    insert into WEBSELFZTC (READERID, ZTCID, ZTC
+      )
+    values (#{readerid,jdbcType=VARCHAR}, #{ztcid,jdbcType=CHAR}, #{ztc,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="wcmc.schoolcard.dto.Webselfztc">
+    insert into WEBSELFZTC
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="readerid != null">
+        READERID,
+      </if>
+      <if test="ztcid != null">
+        ZTCID,
+      </if>
+      <if test="ztc != null">
+        ZTC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="readerid != null">
+        #{readerid,jdbcType=VARCHAR},
+      </if>
+      <if test="ztcid != null">
+        #{ztcid,jdbcType=CHAR},
+      </if>
+      <if test="ztc != null">
+        #{ztc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <resultMap id="Ztc" type="string">
+    <id column="ztc" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="Ztcid" type="string">
+
+    <id column="ztcid" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="selectZtcByReaderId" parameterType="wcmc.schoolcard.dto.Webztc" resultMap="Ztc">
+    select
+    ZTC
+    FROM  WEBSELFZTC
+    where READERID = #{readerid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectZtcidByReaderId" parameterType="wcmc.schoolcard.dto.Webztc" resultMap="Ztcid">
+    select
+    ZTCID
+    FROM  WEBSELFZTC
+    where READERID = #{readerid,jdbcType=VARCHAR}
+  </select>
+</mapper>

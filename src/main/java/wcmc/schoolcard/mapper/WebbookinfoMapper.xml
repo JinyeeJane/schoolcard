@@ -20,7 +20,6 @@
     <include refid="Base_Column_List" />
     from WEBBOOKINFO WHERE BOOKID IN
     <foreach collection="bookids" index="index" item="bookid" open="(" close=")" separator=","> #{bookid} </foreach>
-
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
@@ -33,6 +32,12 @@
     <include refid="Base_Column_List" />
     from WEBBOOKINFO
     where TITLE LIKE #{query,jdbcType=VARCHAR} OR AUTHOR LIKE #{query}
+  </select>
+  <select id="selectByZtc" resultMap="BaseResultMap" parameterType="List" >
+    select * from (select
+    <include refid="Base_Column_List" />
+    from WEBBOOKINFO WHERE ZTC IN
+    <foreach collection="ztcs" index="index" item="ztcs" open="(" close=")" separator=",">'${ztcs}'</foreach> order by DBMS_RANDOM.random)  WHERE   ROWNUM &lt;= 10
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from WEBBOOKINFO

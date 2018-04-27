@@ -109,13 +109,26 @@
 		</table>
 		-->
 		
-		<table schema="" tableName="WEBCOLLECTION" domainObjectName="Webcollection"
+		<!--<table schema="" tableName="WEBCOLLECTION" domainObjectName="Webcollection"-->
+			   <!--enableCountByExample="false" enableUpdateByExample="false"-->
+			   <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+			   <!--selectByExampleQueryId="false" enableUpdateByPrimaryKey="false"-->
+			   <!--enableSelectByPrimaryKey="true" enableInsert="false"-->
+		<!--&gt;-->
+		<!--</table>-->
+		<!--<table schema="" tableName="WEBZTC" domainObjectName="Webztc"-->
+			   <!--enableCountByExample="false" enableUpdateByExample="false"-->
+			   <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+			   <!--selectByExampleQueryId="false" enableUpdateByPrimaryKey="false"-->
+			   <!--enableSelectByPrimaryKey="true" enableInsert="false"-->
+		<!--&gt;-->
+		<!--</table>-->
+		<table schema="" tableName="WEBSELFZTC" domainObjectName="Webselfztc"
 			   enableCountByExample="false" enableUpdateByExample="false"
-			   enableDeleteByExample="false" enableSelectByExample="false"
+			   enableDeleteByExample="true" enableSelectByExample="false"
 			   selectByExampleQueryId="false" enableUpdateByPrimaryKey="false"
-			   enableSelectByPrimaryKey="true" enableInsert="false"
+			   enableSelectByPrimaryKey="true" enableInsert="true"
 		>
 		</table>
-		
 	</context>
 </generatorConfiguration>

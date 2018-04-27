@@ -30,4 +30,8 @@ public class WebBookInfoServiceImpl implements WebBookInfoService{
     public List<Webbookinfo> selectByBookOrAuthorName(String query){
         return webbookinfoMapper.selectByBookOrAuthorName(query);
     }
+    @Override
+    public List<Webbookinfo> selectByZtc(List<String> ztcs){
+        return webbookinfoMapper.selectByZtc(ztcs);
+    };
 }

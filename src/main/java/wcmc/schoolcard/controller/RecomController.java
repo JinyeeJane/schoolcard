@@ -1,7 +1,6 @@
 package wcmc.schoolcard.controller;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
-import org.apache.ibatis.annotations.Param;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +15,6 @@ import javax.servlet.http.HttpSession;
 import wcmc.schoolcard.dto.Webxs;
 
 
-import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,7 +24,7 @@ import java.util.List;
 @RequestMapping("/bookrecom")
 public class RecomController {
     @Autowired
-    private WebRecomTop15Service webRecomTop15Service;
+    private WebRecomService webRecomService;
     @Autowired
     private WebBookInfoService webBookInfoService;
     @Autowired
@@ -37,7 +35,8 @@ public class RecomController {
     private WebHotbookService webHotbookService;
     @Autowired
     private WebCollectionService webCollectionService;
-
+    @Autowired
+    private WebZtcService webZtcService;
 
     @RequestMapping("/search2")
     public String SearchBook2(HttpServletRequest request, Model model){
@@ -63,21 +62,52 @@ public class RecomController {
         return "bookrecom/ajax/search2";
     }
 
-    @RequestMapping("/tagcloud")
-    public String tag(HttpServletRequest request, Model model){
-        //根据书籍名字或作者名字查询书籍
-//        Gson gson = new Gson();
-//        String dir = request.getSession().getServletContext()
-//                .getRealPath("/resources/js/tagcloud/tags.json");
-//        try{
-//            FileInputStream fileInputStream = new FileInputStream(dir);
-//            Reader reader = new InputStreamReader(fileInputStream, "UTF-8");
-//            gson.
-//        }catch (IOException e){
-//            e.printStackTrace();
-//        }
+    @RequestMapping(value = "/tags", produces="application/json;charset=UTF-8;")
+    public  @ResponseBody String tags(HttpServletRequest request, Model model){
+        Gson gson = new Gson();
+        List<Webztc> webztcList;
+        webztcList = webZtcService.selectAll();
+        String webztcListgson = gson.toJson(webztcList);
+        return webztcListgson;
+    }
 
-        return "bookrecom/ajax/tagcloud";
+    @RequestMapping(value = "/selftag", produces="application/json;charset=UTF-8;")
+    public  @ResponseBody String selftag(HttpServletRequest request, Model model){
+        HttpSession session = request.getSession();
+        Webxs xs = (Webxs)session.getAttribute("xs");
+        WebReaderinfo webReaderinfo= webReaderinfoService.selectByXh(xs.getXh());
+        String readerid = webReaderinfo.getReaderid();
+        Gson gson = new Gson();
+        List<String> webselfztcList;
+        webselfztcList = webZtcService.selectZtcidByReaderId(readerid);
+        String webselfztcListgson  =  gson.toJson(webselfztcList);
+        return webselfztcListgson;
+    }
+
+    @RequestMapping(value = "/addordeltag")
+    public  @ResponseBody String addordeltag(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        Webxs xs = (Webxs)session.getAttribute("xs");
+        WebReaderinfo webReaderinfo= webReaderinfoService.selectByXh(xs.getXh());
+        String readerid = webReaderinfo.getReaderid();
+        String ztcid = request.getParameter("ztcid");
+        String ztc = request.getParameter("ztc");
+        String addordeltag = request.getParameter("addordeltag");
+
+        if (addordeltag.equals("false")){
+            WebselfztcKey key = new WebselfztcKey();
+            key.setReaderid(readerid);
+            key.setZtcid(ztcid);
+            webZtcService.deleteByPrimaryKey(key);
+        }
+        else {
+            Webselfztc record = new Webselfztc();
+            record.setReaderid(readerid);
+            record.setZtcid(ztcid);
+            record.setZtc(ztc);
+            webZtcService.insert(record);
+        }
+        return "success";
     }
 
     @RequestMapping(value = "/hotbook", produces="application/json;charset=UTF-8;")
@@ -86,12 +116,10 @@ public class RecomController {
         String begintime ;
         String endtime ;
         String faculty ;
-
         if (request.getParameter("begintime")==null){
             begintime = "20080000";
             endtime= "20120000";
             faculty = "信息科学与工程学院";
-
         }
         else {
              begintime = request.getParameter("begintime");
@@ -99,8 +127,11 @@ public class RecomController {
              faculty = request.getParameter("faculty");
             System.out.println(begintime+faculty+endtime);
         }
-
         List<Result4Hotbook> hotbook = webHotbookService.selectbyTimeandFaculty(begintime,endtime,faculty);
+
+        if(hotbook.size() == 0){
+            return "null";
+        }
         Gson Gson = new Gson();
         String hotbookGson= Gson.toJson(hotbook);
         System.out.println(hotbook.size());
@@ -118,15 +149,20 @@ public class RecomController {
         List<Webborrow> listOfBrorrow;
         List<Webbookinfo> listOfBroBookInfo = new ArrayList<>();
         listOfBrorrow = webBorrowService.selectByReaderId(readerid);
-        Webbookinfo webbookinfo;
-        for(int i=0;i<listOfBrorrow.size();i++) {
-            webbookinfo = webBookInfoService.selectByPrimaryKey(listOfBrorrow.get(i).getBookid());
-            listOfBroBookInfo.add(webbookinfo);
+        if(listOfBrorrow.size() == 0){
+            return "null";
         }
-        Gson Gson = new Gson();
-        String listOfBroBookInfoGson= Gson.toJson(listOfBroBookInfo);
-        System.out.println(listOfBroBookInfo.size());
-        return listOfBroBookInfoGson;
+        else {
+            Webbookinfo webbookinfo;
+            for(int i=0;i<listOfBrorrow.size();i++) {
+                webbookinfo = webBookInfoService.selectByPrimaryKey(listOfBrorrow.get(i).getBookid());
+                listOfBroBookInfo.add(webbookinfo);
+            }
+            Gson Gson = new Gson();
+            String listOfBroBookInfoGson= Gson.toJson(listOfBroBookInfo);
+            System.out.println(listOfBroBookInfo.size());
+            return listOfBroBookInfoGson;
+        }
     }
     @RequestMapping(value = "/collection")
     public  @ResponseBody String collection(HttpServletRequest request){
@@ -139,7 +175,6 @@ public class RecomController {
         String readerid = webReaderinfo.getReaderid();
         String bookid = request.getParameter("bookid");
         String addordel = request.getParameter("addordel");
-
         if (addordel.equals("false")){
             WebcollectionKey key = new WebcollectionKey();
             key.setReaderid(readerid);
@@ -158,26 +193,23 @@ public class RecomController {
 
     @RequestMapping(value = "/showcollection",produces="application/json;charset=UTF-8;")
     public  @ResponseBody String showcollection(HttpServletRequest request){
-
         HttpSession session = request.getSession();
         Webxs xs = (Webxs)session.getAttribute("xs");
         WebReaderinfo webReaderinfo= webReaderinfoService.selectByXh(xs.getXh());
         String readerid = webReaderinfo.getReaderid();
-//        List<Webcollection> collectionList ;
-//        collectionList = webCollectionService.selectByReaderId(readerid);
         List<String> collectionBookidList;
         List<Webbookinfo> webbookinfoList;
-//        Webcollection collection;
-//        for(int i=0;i<collectionList.size();i++){
-//            collection = collectionList.get(i);
-//            collectionBookidList.add(collection.getBookid());
-//        }
-        collectionBookidList =webCollectionService.selectBookidByReaderId(readerid);
-        System.out.println(collectionBookidList);
-        webbookinfoList = webBookInfoService.selectByBookIds(collectionBookidList);
-        Gson gson =new Gson();
-        String webbookinfoListGson = gson.toJson(webbookinfoList);
-        return webbookinfoListGson;
+        collectionBookidList = webCollectionService.selectBookidByReaderId(readerid);
+        if(collectionBookidList.size() == 0){
+            return "null";
+        }
+        else {
+            webbookinfoList = webBookInfoService.selectByBookIds(collectionBookidList);
+            Gson gson =new Gson();
+            String webbookinfoListGson = gson.toJson(webbookinfoList);
+            return webbookinfoListGson;
+        }
+
     }
 
     @RequestMapping("/newbookrecom")
@@ -187,31 +219,34 @@ public class RecomController {
         Webxs xs = (Webxs)session.getAttribute("xs");
         WebReaderinfo webReaderinfo= webReaderinfoService.selectByXh(xs.getXh());
         String readerid = webReaderinfo.getReaderid();
-        WebRecomtop15 webRecomtop15 = webRecomTop15Service.selectByPrimaryKey(readerid);
         Gson gson = new Gson();
-        if(webRecomtop15 != null){
-            List<Webbookinfo> listOfRecBooks = new ArrayList<>();
-            Class rectop15Class =  webRecomtop15.getClass();
-            Webbookinfo webbookinfo;
-            for(int i=1;i<=15;i++){
-                try{
-                    Method method = rectop15Class.getMethod("getBookid"+i);
-                    webbookinfo = webBookInfoService.selectByPrimaryKey(method.invoke(webRecomtop15).toString());
-                    listOfRecBooks.add(webbookinfo);
-                }
-                catch (NoSuchMethodException e){
-                    System.out.println(e.toString());
-                }
-                catch (Exception e){
-                    System.out.println(e.toString());
-                }
-            }
-            String listOfRecBooksGson= gson.toJson(listOfRecBooks);
-            model.addAttribute("listOfRecBooks", listOfRecBooksGson);
-        }
-        else{
-            model.addAttribute("listOfRecBooks", "null");
-        }
+//        WebRecomtop15 webRecomtop15 = webRecomService.selectByPrimaryKey(readerid);
+
+//        if(webRecomtop15 != null){
+//            List<Webbookinfo> listOfRecBooks = new ArrayList<>();
+//            Class rectop15Class =  webRecomtop15.getClass();
+//            Webbookinfo webbookinfo;
+//            for(int i=1;i<=15;i++){
+//                try{
+//                    Method method = rectop15Class.getMethod("getBookid"+i);
+//                    webbookinfo = webBookInfoService.selectByPrimaryKey(method.invoke(webRecomtop15).toString());
+//                    listOfRecBooks.add(webbookinfo);
+//                }
+//                catch (NoSuchMethodException e){
+//                    System.out.println(e.toString());
+//                }
+//                catch (Exception e){
+//                    System.out.println(e.toString());
+//                }
+//            }
+//            String listOfRecBooksGson= gson.toJson(listOfRecBooks);
+//            model.addAttribute("listOfRecBooks", listOfRecBooksGson);
+//        }
+//        else{
+//            model.addAttribute("listOfRecBooks", "null");
+//        }
+        String listOfRecBooksGson = webRecomService.recom(readerid);
+        model.addAttribute("listOfRecBooks", listOfRecBooksGson);
         List<String> collectionBookidList;
         collectionBookidList = webCollectionService.selectBookidByReaderId(readerid);
         System.out.println(collectionBookidList);

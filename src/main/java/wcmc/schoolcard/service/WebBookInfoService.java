@@ -13,4 +13,6 @@ public interface WebBookInfoService {
     List<Webbookinfo> selectByBookIds(List<String> bookids);
 
     List<Webbookinfo> selectByBookOrAuthorName(String query);
+
+    List<Webbookinfo> selectByZtc(List<String> ztcs);
 }
